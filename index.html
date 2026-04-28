@@ -1,246 +1,190 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ValClabs — Data Specialist & Strategy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --white: #ffffff;
-            --off: #f7f8fc;
-            --text: #111827;
-            --muted: #6b7280;
-            --light: #e5e7eb;
-            --blue: #2d8cf0;
-            --blue-d: #1a6ecb;
-            --purple: #7c3aed;
-            --shadow: 0 4px 24px rgba(0,0,0,0.07);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ValClabs 🚀 — Rediseña tu futuro con datos</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --off: #f7f8fc;
+    --text: #111827;
+    --muted: #6b7280;
+    --light: #e5e7eb;
+    --blue: #2d8cf0;
+    --purple: #7c3aed;
+    --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
+  }
 
-        /* Reset General */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            background: var(--white);
-            color: var(--text);
-            font-family: 'Source Sans 3', sans-serif;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-        h1, h2, h3 { font-family: 'Nunito', sans-serif; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--white);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
 
-        /* Navegación */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 1rem 5%;
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--light);
-        }
-        .logo-text { font-weight: 900; font-size: 1.5rem; color: var(--blue); text-decoration: none; }
+  h1, h2, h3 { font-family: 'Nunito', sans-serif; }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex; align-items: center;
-            padding: 140px 5% 80px;
-            background: radial-gradient(circle at 10% 20%, rgba(45, 140, 240, 0.05) 0%, rgba(255, 255, 255, 1) 90%);
-            position: relative;
-        }
-        .hero-inner {
-            display: grid; grid-template-columns: 1.2fr 0.8fr;
-            gap: 3rem; max-width: 1200px; margin: 0 auto;
-            align-items: center;
-        }
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 5%;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--light);
+  }
+  .logo-text { font-weight: 900; font-size: 1.5rem; color: var(--blue); }
 
-        /* FOTO DINÁMICA - OPTIMIZADA PARA MÓVIL (Con tu archivo EPCAV.jpg) */
-        .photo-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .photo-blob {
-            width: 380px;
-            height: 440px; /* Un poco más alta para aprovechar tu foto */
-            background: url('EPCAV.jpg') center/cover;
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            animation: blob-morph 10s ease-in-out infinite;
-            box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
-            border: 8px solid var(--white);
-            z-index: 2;
-        }
+  /* HERO DINÁMICO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 5% 50px;
+    background: radial-gradient(circle at top right, #f0f7ff, #ffffff);
+  }
+  .hero-inner {
+    display: grid; grid-template-columns: 1.2fr 0.8fr;
+    gap: 3rem; max-width: 1200px; margin: 0 auto;
+    align-items: center;
+  }
 
-        .photo-bg-shape {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, var(--blue), var(--purple));
-            filter: blur(40px);
-            opacity: 0.2;
-            border-radius: 50%;
-            z-index: 1;
-            animation: pulse 4s infinite alternate;
-        }
+  .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem; }
+  .hero h1 span { color: var(--purple); }
+  .hero-sub { font-size: 1.2rem; color: var(--muted); margin-bottom: 2rem; }
 
-        @keyframes blob-morph {
-            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: scale(1) rotate(0deg); }
-            33% { border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%; transform: scale(1.02) rotate(2deg); }
-            66% { border-radius: 70% 30% 60% 40% / 30% 60% 40% 70%; transform: scale(0.98) rotate(-2deg); }
-        }
+  /* FOTO DINÁMICA OPTIMIZADA MÓVIL */
+  .photo-container {
+    position: relative;
+    display: flex; justify-content: center;
+  }
+  .photo-frame {
+    width: 280px; height: 350px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Forma orgánica */
+    animation: morph 8s ease-in-out infinite;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+  }
+  .photo-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+    border-radius: inherit;
+    border: 5px solid white;
+  }
+  @keyframes morph {
+    0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    50% { border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%; }
+  }
 
-        @keyframes pulse {
-            from { transform: scale(1); opacity: 0.1; }
-            to { transform: scale(1.1); opacity: 0.3; }
-        }
+  /* REVIEWS CARRUSEL INFINITO */
+  .reviews-section { background: var(--off); padding: 80px 0; overflow: hidden; }
+  .reviews-title { text-align: center; margin-bottom: 40px; }
+  .marquee { display: flex; gap: 2rem; animation: scroll 30s linear infinite; width: max-content; }
+  .review-card {
+    background: white; padding: 2rem; border-radius: 15px;
+    width: 350px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid var(--light);
+  }
+  .review-text { font-style: italic; margin-bottom: 1rem; font-size: 0.95rem; }
+  .review-author { font-weight: 800; font-size: 0.85rem; color: var(--blue); }
 
-        /* Texto y Contenido */
-        .lang-tag {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: #e0f2fe; color: var(--blue-d);
-            padding: 6px 16px; border-radius: 50px;
-            font-weight: 700; font-size: 0.85rem; margin-bottom: 1.5rem;
-        }
-        .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; margin-bottom: 1.5rem; color: var(--text); }
-        .hero h1 em { font-style: normal; background: linear-gradient(to right, var(--blue), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-desc { font-size: 1.2rem; color: var(--muted); margin-bottom: 2.5rem; max-width: 550px; }
-        
-        .btn-primary {
-            background: var(--blue); color: white; padding: 1.2rem 2.5rem;
-            border-radius: 15px; text-decoration: none; font-weight: 800;
-            display: inline-block; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(45,140,240,0.2);
-        }
-        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(45,140,240,0.4); }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 
-        /* Reviews Carrusel Infinito */
-        .reviews-section { background: var(--off); padding: 100px 0; overflow: hidden; border-top: 1px solid var(--light); }
-        .reviews-title { text-align: center; margin-bottom: 4rem; font-size: 2rem; font-weight: 900; }
-        
-        .marquee-wrapper { display: flex; width: 200%; animation: scroll 40s linear infinite; }
-        .marquee-wrapper:hover { animation-play-state: paused; }
-        
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+  /* FORMULARIO */
+  .contact-section { padding: 80px 5%; max-width: 800px; margin: 0 auto; }
+  .form-card { background: white; border: 1px solid var(--light); border-radius: 20px; padding: 2.5rem; box-shadow: var(--shadow-lg); }
+  .form-group { margin-bottom: 1.5rem; }
+  label { display: block; font-weight: 700; margin-bottom: 0.5rem; }
+  input, textarea, select { width: 100%; padding: 0.8rem; border: 1px solid var(--light); border-radius: 10px; }
+  .btn-submit { background: var(--blue); color: white; border: none; padding: 1rem 2rem; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; }
 
-        .card {
-            background: white; padding: 2.5rem; border-radius: 30px;
-            width: 380px; margin: 0 1.5rem; flex-shrink: 0;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.05);
-            display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .card-text { font-size: 1rem; line-height: 1.7; font-style: italic; color: #4b5563; margin-bottom: 2rem; }
-        .card-user { display: flex; align-items: center; gap: 1rem; }
-        .user-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--light); display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--blue); }
-        .user-info h4 { font-size: 0.95rem; margin: 0; color: var(--text); }
-        .user-info p { font-size: 0.8rem; color: var(--muted); margin: 0; }
-
-        /* Responsive Móvil */
-        @media (max-width: 968px) {
-            .hero-inner { grid-template-columns: 1fr; text-align: center; }
-            .hero-desc { margin: 0 auto 2.5rem; }
-            .photo-blob { width: 280px; height: 320px; margin: 0 auto; }
-            .photo-bg-shape { width: 300px; height: 300px; left: 50%; transform: translateX(-50%); }
-            .photo-container { margin-top: 2rem; }
-        }
-    </style>
+  @media (max-width: 850px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .photo-container { order: -1; }
+  }
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="logo-text">ValClabs 🚀</a>
-        <a href="#contacto" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Let's Talk!</a>
-    </nav>
+<nav>
+  <div class="logo-text">ValClabs 🚀</div>
+  <a href="#contacto" style="text-decoration:none; color: var(--blue); font-weight: 700;">Hablemos</a>
+</nav>
 
-    <section class="hero">
-        <div class="hero-inner">
-            <div class="hero-content">
-                <div class="lang-tag">
-                    <span>🌎</span> Bilingüe: Español & English
-                </div>
-                <h1>Soy <em>Valclabs</em>. Transformo tu data con pasión.</h1>
-                <p class="hero-desc">
-                    Entiendo el esfuerzo detrás de cada startup y pequeño negocio. Por eso, no solo analizo datos; me convierto en tu aliada estratégica para que crezcamos juntos, con claridad y sin rodeos.
-                </p>
-                <a href="#contacto" class="btn-primary">Trabajemos juntos →</a>
-            </div>
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>¡Hola! Soy Val. Ayudo a personas como tú a <span>dominar sus datos</span> y recuperar su libertad.</h1>
+      <p class="hero-sub">Ya sea que quieras dar un salto de carrera o que tu negocio necesite claridad, estoy aquí para guiarte. <strong>I also work in English if your project needs a global reach!</strong></p>
+      <a href="#contacto" class="btn-submit" style="text-decoration:none; display:inline-block; width:auto;">Empezar mi cambio hoy</a>
+    </div>
+    <div class="photo-container">
+      <div class="photo-frame">
+        <img src="https://via.placeholder.com/400x500" alt="ValClabs">
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="photo-container">
-                <div class="photo-bg-shape"></div>
-                <div class="photo-blob"></div>
-            </div>
-        </div>
-    </section>
+<section class="reviews-section">
+  <div class="reviews-title">
+    <h2>Lo que dicen quienes ya dieron el paso conmigo:</h2>
+  </div>
+  <div class="marquee">
+    <div class="review-card">
+      <p class="review-text">"Parce, yo vendía mucho pero no sabía qué me dejaba plata de verdad. Val me organizó el tablero y por fin entiendo mis números. ¡Un cambio total!"</p>
+      <p class="review-author">— Andrés M. | E-commerce (Medellín)</p>
+    </div>
+    <div class="review-card">
+      <p class="review-text">"Necesitábamos reportes en inglés para nuestros inversores en California. Val no solo domina la data, sino que el bilingüismo fue clave. ¡Súper profesional!"</p>
+      <p class="review-author">— Sofía G. | Operations Manager (CDMX)</p>
+    </div>
+    <div class="review-card">
+      <p class="review-text">"I was lost in my career. Val's mentorship gave me the exact roadmap I needed to land my first Junior Data Analyst role. Worth every penny."</p>
+      <p class="review-author">— Jason L. | Freelance Analyst (Austin, TX)</p>
+    </div>
+    <div class="review-card">
+      <p class="review-text">"Por fin alguien que explica datos sin usar palabras raras. Siento que ahora tengo el control de mi tiempo y mi futuro."</p>
+      <p class="review-author">— Mateo R. | Ex-Administrativo (Bogotá)</p>
+    </div>
+  </div>
+</section>
 
-    <section class="reviews-section">
-        <h2 class="reviews-title">Confianza que cruza fronteras ✨</h2>
-        <div class="marquee-wrapper">
-            <div class="card">
-                <p class="card-text">"Valclabs tiene una agilidad impresionante. En una semana nos ordenó métricas que nos estaban volviendo locos. ¡Indispensable para cualquier startup en México!"</p>
-                <div class="card-user">
-                    <div class="user-avatar" style="background:#dcfce7">MA</div>
-                    <div class="user-info">
-                        <h4>Miguel Arango</h4>
-                        <p>CTO @ PropTech, CDMX</p>
-                    </div>
-                </div>
-            </div>
+<section id="contacto" class="contact-section">
+  <div class="form-card">
+    <h3>Cuéntame, ¿cómo puedo ayudarte?</h3>
+    <p style="margin-bottom: 2rem; color: var(--muted)">Me tomo cada proyecto de forma personal. Escríbeme y diseñemos tu ruta.</p>
+    <form>
+      <div class="form-group">
+        <label>¿Cómo te llamas?</label>
+        <input type="text" placeholder="Ej. Lucía">
+      </div>
+      <div class="form-group">
+        <label>¿Cuál es tu objetivo principal?</label>
+        <select>
+          <option>Quiero aprender para cambiar de carrera</option>
+          <option>Quiero entender los datos de mi negocio</option>
+          <option>Busco consultoría bilingüe (Español/Inglés)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tu mensaje (Ponle corazón)</label>
+        <textarea rows="4" placeholder="Cuéntame sobre tus retos actuales..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Enviar mensaje con cariño 🚀</button>
+    </form>
+  </div>
+</section>
 
-            <div class="card">
-                <p class="card-text">"Se nota el compromiso y el cariño que le pone a su trabajo. No es solo un reporte, es que se preocupa porque uno como independiente entienda el negocio."</p>
-                <div class="card-user">
-                    <div class="user-avatar" style="background:#fee2e2">SR</div>
-                    <div class="user-info">
-                        <h4>Sandra Restrepo</h4>
-                        <p>Diseño Independiente, Medellín</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <p class="card-text">"Working with Valclabs was a breeze. Her ability to switch between Spanish and English while explaining complex data insights is a game changer for us in the US."</p>
-                <div class="card-user">
-                    <div class="user-avatar" style="background:#e0f2fe">JB</div>
-                    <div class="user-info">
-                        <h4>Jim Brooks</h4>
-                        <p>Owner @ Brooks Agency, Miami</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <p class="card-text">"¡La mejor! Valclabs nos ayudó a escalar nuestras decisiones basadas en datos reales. Súper profesional y con una vibra increíble."</p>
-                <div class="card-user">
-                    <div class="user-avatar" style="background:#fef3c7">CP</div>
-                    <div class="user-info">
-                        <h4>Camilo P.</h4>
-                        <p>Founder @ Logística 360, Bogotá</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <p class="card-text">"Valclabs tiene una agilidad impresionante. En una semana nos ordenó métricas que nos estaban volviendo locos..."</p>
-                <div class="card-user">
-                    <div class="user-avatar" style="background:#dcfce7">MA</div>
-                    <div class="user-info"><h4>Miguel Arango</h4><p>CTO @ PropTech, CDMX</p></div>
-                </div>
-            </div>
-            <div class="card">
-                <p class="card-text">"Working with Valclabs was a breeze. Her ability to switch between languages is a game changer..."</p>
-                <div class="card-user">
-                    <div class="user-avatar" style="background:#e0f2fe">JB</div>
-                    <div class="user-info"><h4>Jim Brooks</h4><p>Miami, FL</p></div>
-                </div>
-            </div>
-        </div>
-    </section>
+<footer>
+  <p style="text-align:center; padding: 2rem; color: var(--muted)">&copy; 2026 ValClabs. Hecho con ❤️ y mucha Data.</p>
+</footer>
 
 </body>
 </html>
