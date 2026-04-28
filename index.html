@@ -1,660 +1,246 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValClabs — Trabaja Conmigo</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --white:   #ffffff;
-    --off:     #f7f8fc;
-    --text:    #111827;
-    --muted:   #6b7280;
-    --light:   #e5e7eb;
-    --blue:    #2d8cf0;
-    --blue-d:  #1a6ecb;
-    --green:   #5db329;
-    --red:     #e63946;
-    --orange:  #f4a01c;
-    --purple:  #7c3aed;
-    --shadow:  0 4px 24px rgba(0,0,0,0.07);
-    --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ValClabs — Data Specialist & Strategy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --white: #ffffff;
+            --off: #f7f8fc;
+            --text: #111827;
+            --muted: #6b7280;
+            --light: #e5e7eb;
+            --blue: #2d8cf0;
+            --blue-d: #1a6ecb;
+            --purple: #7c3aed;
+            --shadow: 0 4px 24px rgba(0,0,0,0.07);
+        }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+        /* Reset General */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--white);
+            color: var(--text);
+            font-family: 'Source Sans 3', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        h1, h2, h3 { font-family: 'Nunito', sans-serif; }
 
-  body {
-    background: var(--white);
-    color: var(--text);
-    font-family: 'Source Sans 3', sans-serif;
-    font-weight: 400;
-    overflow-x: hidden;
-    line-height: 1.6;
-  }
+        /* Navegación */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1rem 5%;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--light);
+        }
+        .logo-text { font-weight: 900; font-size: 1.5rem; color: var(--blue); text-decoration: none; }
 
-  h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; }
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center;
+            padding: 140px 5% 80px;
+            background: radial-gradient(circle at 10% 20%, rgba(45, 140, 240, 0.05) 0%, rgba(255, 255, 255, 1) 90%);
+            position: relative;
+        }
+        .hero-inner {
+            display: grid; grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem; max-width: 1200px; margin: 0 auto;
+            align-items: center;
+        }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 5%;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--light);
-    transition: box-shadow 0.3s;
-  }
-  nav.scrolled { box-shadow: var(--shadow); }
-  .logo-text {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 900; font-size: 1.5rem;
-    background: linear-gradient(90deg, #2d8cf0, #7c3aed, #e63946, #f4a01c, #5db329);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    color: var(--muted); text-decoration: none;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.95rem; font-weight: 600; transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
-  .nav-cta {
-    background: var(--blue); color: white; text-decoration: none;
-    padding: 0.55rem 1.4rem; border-radius: 8px;
-    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.9rem;
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  }
-  .nav-cta:hover { background: var(--blue-d); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(45,140,240,0.3); }
+        /* FOTO DINÁMICA - OPTIMIZADA PARA MÓVIL (Con tu archivo EPCAV.jpg) */
+        .photo-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .photo-blob {
+            width: 380px;
+            height: 440px; /* Un poco más alta para aprovechar tu foto */
+            background: url('EPCAV.jpg') center/cover;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: blob-morph 10s ease-in-out infinite;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
+            border: 8px solid var(--white);
+            z-index: 2;
+        }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    padding: 9rem 5% 5rem;
-    background: var(--white);
-    position: relative; overflow: hidden;
-  }
-  .hero-blob { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
-  .blob1 { width: 480px; height: 480px; background: #dbeafe; top: -120px; left: -80px; opacity: 0.55; animation: bfloat 9s ease-in-out infinite; }
-  .blob2 { width: 380px; height: 380px; background: #ede9fe; bottom: -60px; right: -60px; opacity: 0.45; animation: bfloat 11s ease-in-out infinite reverse; }
-  .blob3 { width: 260px; height: 260px; background: #dcfce7; top: 40%; left: 55%; opacity: 0.35; animation: bfloat 7s ease-in-out infinite; }
-  @keyframes bfloat { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,25px)} }
+        .photo-bg-shape {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            filter: blur(40px);
+            opacity: 0.2;
+            border-radius: 50%;
+            z-index: 1;
+            animation: pulse 4s infinite alternate;
+        }
 
-  .hero-inner {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 5rem; align-items: center;
-    max-width: 1160px; width: 100%;
-    position: relative; z-index: 1;
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: #eff6ff; border: 1px solid #bfdbfe;
-    color: var(--blue); padding: 0.35rem 1rem; border-radius: 50px;
-    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.78rem;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    margin-bottom: 1.5rem; animation: fadeUp 0.7s ease both;
-  }
-  .hero h1 {
-    font-size: clamp(2.8rem, 6vw, 5.5rem);
-    font-weight: 900; line-height: 1.05; letter-spacing: -0.03em;
-    margin-bottom: 1.5rem; animation: fadeUp 0.7s 0.08s ease both;
-  }
-  .hero h1 em {
-    font-style: normal;
-    background: linear-gradient(120deg, var(--blue) 0%, var(--purple) 50%, var(--red) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero-sub {
-    font-size: 1.15rem; color: var(--muted); max-width: 460px; line-height: 1.75;
-    margin-bottom: 2.5rem; animation: fadeUp 0.7s 0.16s ease both; font-weight: 300;
-  }
-  .hero-sub strong { color: var(--text); font-weight: 600; }
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.7s 0.24s ease both; }
-  .btn-blue {
-    background: var(--blue); color: white; padding: 0.85rem 2rem; border-radius: 10px;
-    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
-    text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  }
-  .btn-blue:hover { background: var(--blue-d); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(45,140,240,0.35); }
-  .btn-outline {
-    border: 2px solid var(--light); color: var(--text); padding: 0.85rem 2rem; border-radius: 10px;
-    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem;
-    text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
-    transition: border-color 0.2s, background 0.2s, color 0.2s;
-  }
-  .btn-outline:hover { border-color: var(--blue); color: var(--blue); background: #eff6ff; }
-  .hero-visual { display: flex; flex-direction: column; gap: 1rem; animation: fadeUp 0.7s 0.32s ease both; }
-  .mini-card {
-    background: var(--white); border: 1px solid var(--light); border-radius: 16px;
-    padding: 1.2rem 1.5rem; box-shadow: var(--shadow);
-    display: flex; align-items: center; gap: 1rem;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .mini-card:hover { transform: translateX(6px); box-shadow: var(--shadow-lg); }
-  .mini-card:nth-child(even) { margin-left: 1.5rem; }
-  .mini-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
-  .mini-title { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.88rem; margin-bottom: 0.1rem; }
-  .mini-sub { font-size: 0.78rem; color: var(--muted); }
-  .hero-stats {
-    display: flex; gap: 2rem; margin-top: 1.5rem;
-    padding-top: 1.5rem; border-top: 1px solid var(--light);
-    animation: fadeUp 0.7s 0.4s ease both; flex-wrap: wrap;
-  }
-  .stat-num { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 2rem; color: var(--blue); }
-  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
+        @keyframes blob-morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: scale(1) rotate(0deg); }
+            33% { border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%; transform: scale(1.02) rotate(2deg); }
+            66% { border-radius: 70% 30% 60% 40% / 30% 60% 40% 70%; transform: scale(0.98) rotate(-2deg); }
+        }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 0.1; }
+            to { transform: scale(1.1); opacity: 0.3; }
+        }
 
-  /* MARQUEE */
-  .marquee-wrap {
-    overflow: hidden; padding: 1.2rem 0;
-    background: var(--off); border-top: 1px solid var(--light); border-bottom: 1px solid var(--light);
-  }
-  .marquee-track { display: flex; gap: 2.5rem; animation: marquee 22s linear infinite; width: max-content; }
-  .marquee-item {
-    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.8rem;
-    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
-    white-space: nowrap; display: flex; align-items: center; gap: 1rem;
-  }
-  .mdot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); opacity: 0.4; }
-  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        /* Texto y Contenido */
+        .lang-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #e0f2fe; color: var(--blue-d);
+            padding: 6px 16px; border-radius: 50px;
+            font-weight: 700; font-size: 0.85rem; margin-bottom: 1.5rem;
+        }
+        .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; margin-bottom: 1.5rem; color: var(--text); }
+        .hero h1 em { font-style: normal; background: linear-gradient(to right, var(--blue), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-desc { font-size: 1.2rem; color: var(--muted); margin-bottom: 2.5rem; max-width: 550px; }
+        
+        .btn-primary {
+            background: var(--blue); color: white; padding: 1.2rem 2.5rem;
+            border-radius: 15px; text-decoration: none; font-weight: 800;
+            display: inline-block; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(45,140,240,0.2);
+        }
+        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(45,140,240,0.4); }
 
-  /* SECTIONS */
-  section { padding: 6rem 5%; }
-  .container { max-width: 1160px; margin: 0 auto; }
-  .section-eyebrow {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.75rem;
-    letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue);
-    margin-bottom: 1rem;
-  }
-  .section-eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--blue); border-radius: 2px; }
-  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
-  .section-sub { font-size: 1.05rem; color: var(--muted); max-width: 520px; line-height: 1.75; font-weight: 300; }
+        /* Reviews Carrusel Infinito */
+        .reviews-section { background: var(--off); padding: 100px 0; overflow: hidden; border-top: 1px solid var(--light); }
+        .reviews-title { text-align: center; margin-bottom: 4rem; font-size: 2rem; font-weight: 900; }
+        
+        .marquee-wrapper { display: flex; width: 200%; animation: scroll 40s linear infinite; }
+        .marquee-wrapper:hover { animation-play-state: paused; }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
-  /* SERVICES */
-  #servicios { background: var(--off); }
-  .services-header { text-align: center; margin-bottom: 3.5rem; }
-  .services-header .section-eyebrow { justify-content: center; }
-  .services-header .section-sub { margin: 0 auto; text-align: center; }
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .card {
+            background: white; padding: 2.5rem; border-radius: 30px;
+            width: 380px; margin: 0 1.5rem; flex-shrink: 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .card-text { font-size: 1rem; line-height: 1.7; font-style: italic; color: #4b5563; margin-bottom: 2rem; }
+        .card-user { display: flex; align-items: center; gap: 1rem; }
+        .user-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--light); display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--blue); }
+        .user-info h4 { font-size: 0.95rem; margin: 0; color: var(--text); }
+        .user-info p { font-size: 0.8rem; color: var(--muted); margin: 0; }
 
-  .service-card {
-    background: var(--white); border: 1px solid var(--light);
-    border-radius: 20px; padding: 2.2rem;
-    position: relative; overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-  }
-  .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-  .service-card.sc-blue:hover  { border-color: rgba(45,140,240,0.35); }
-  .service-card.sc-green:hover { border-color: rgba(93,179,41,0.35); }
-  .service-card.sc-purple:hover{ border-color: rgba(124,58,237,0.35); }
-  .service-card.sc-red:hover   { border-color: rgba(230,57,70,0.35); }
-  .service-card.sc-orange:hover{ border-color: rgba(244,160,28,0.35); }
-
-  .card-stripe {
-    position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    border-radius: 20px 20px 0 0;
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-  .service-card:hover .card-stripe { transform: scaleX(1); }
-  .sc-blue   .card-stripe { background: linear-gradient(90deg, #2d8cf0, #93c5fd); }
-  .sc-green  .card-stripe { background: linear-gradient(90deg, #5db329, #86efac); }
-  .sc-purple .card-stripe { background: linear-gradient(90deg, #7c3aed, #c4b5fd); }
-  .sc-red    .card-stripe { background: linear-gradient(90deg, #e63946, #fca5a5); }
-  .sc-orange .card-stripe { background: linear-gradient(90deg, #f4a01c, #fde68a); }
-
-  .card-ghost { position: absolute; top: 0.8rem; right: 1.5rem; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 5.5rem; line-height: 1; color: var(--text); opacity: 0.04; pointer-events: none; }
-  .card-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.4rem; }
-  .sc-blue   .card-icon { background: #dbeafe; }
-  .sc-green  .card-icon { background: #dcfce7; }
-  .sc-purple .card-icon { background: #ede9fe; }
-  .sc-red    .card-icon { background: #fee2e2; }
-  .sc-orange .card-icon { background: #fef3c7; }
-
-  .card-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.7rem; line-height: 1.25; }
-  .card-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.4rem; font-weight: 300; }
-  .card-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-  .card-list li { font-size: 0.87rem; color: #374151; display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.5; }
-  .card-list li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 0.42rem; }
-  .sc-blue   .card-list li::before { background: var(--blue); }
-  .sc-green  .card-list li::before { background: var(--green); }
-  .sc-purple .card-list li::before { background: var(--purple); }
-  .sc-red    .card-list li::before { background: var(--red); }
-  .sc-orange .card-list li::before { background: var(--orange); }
-
-  .service-card.full-card {
-    grid-column: 1 / -1;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
-    background: linear-gradient(135deg, #fffbf0, #fff7ed);
-    border-color: #fed7aa;
-  }
-  .full-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
-  .fstep { background: rgba(255,255,255,0.85); border-radius: 12px; padding: 1rem 1.1rem; border: 1px solid #fed7aa; }
-  .fstep-phase { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
-  .fstep-name { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.88rem; margin-bottom: 0.3rem; }
-  .fstep-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
-
-  /* PROCESS */
-  #proceso { background: var(--white); }
-  .process-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
-  .process-steps { display: flex; flex-direction: column; gap: 0; position: relative; }
-  .process-steps::before { content: ''; position: absolute; left: 19px; top: 20px; bottom: 20px; width: 2px; background: linear-gradient(180deg, var(--blue), var(--green), var(--orange), var(--red)); opacity: 0.2; }
-  .pstep { display: flex; gap: 1.4rem; padding: 1.5rem 0; }
-  .pdot { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 0.82rem; position: relative; z-index: 1; }
-  .pdot.d1 { background: #dbeafe; color: var(--blue);   border: 2px solid #bfdbfe; }
-  .pdot.d2 { background: #dcfce7; color: var(--green);  border: 2px solid #86efac; }
-  .pdot.d3 { background: #fef3c7; color: #b45309;       border: 2px solid #fde68a; }
-  .pdot.d4 { background: #fee2e2; color: var(--red);    border: 2px solid #fca5a5; }
-  .pstep-title { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem; margin-bottom: 0.3rem; }
-  .pstep-desc  { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
-
-  /* CONTACT */
-  #contacto { background: var(--off); }
-  .contact-wrapper { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: start; max-width: 1000px; margin: 0 auto; }
-  .info-pill { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1rem; background: var(--white); border: 1px solid var(--light); border-radius: 12px; margin-bottom: 0.8rem; font-size: 0.9rem; font-weight: 600; }
-  .pill-icon { font-size: 1.1rem; }
-  .pill-label { font-size: 0.75rem; color: var(--muted); font-weight: 400; display: block; margin-top: 0.1rem; }
-
-  .form-card { background: var(--white); border: 1px solid var(--light); border-radius: 20px; padding: 2.5rem; box-shadow: var(--shadow); }
-  .form-title { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 0.4rem; }
-  .form-subtitle { font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem; }
-  .form-group { margin-bottom: 1.2rem; }
-  .form-label { display: block; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--text); margin-bottom: 0.4rem; }
-  .form-input, .form-textarea, .form-select {
-    width: 100%; padding: 0.75rem 1rem;
-    border: 1.5px solid var(--light); border-radius: 10px;
-    font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem;
-    color: var(--text); background: var(--white);
-    transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none;
-  }
-  .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(45,140,240,0.12); }
-  .form-textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
-  .form-select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .btn-submit {
-    width: 100%; padding: 0.95rem; background: var(--blue); color: white;
-    border: none; border-radius: 10px;
-    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.05rem;
-    cursor: pointer; margin-top: 0.5rem;
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  }
-  .btn-submit:hover { background: var(--blue-d); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(45,140,240,0.35); }
-  .form-privacy { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 1rem; line-height: 1.5; }
-  .form-success { display: none; text-align: center; padding: 2rem 1rem; }
-  .form-success .s-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-  .form-success h3 { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.4rem; margin-bottom: 0.6rem; }
-  .form-success p { font-size: 0.95rem; color: var(--muted); line-height: 1.6; }
-
-  /* FOOTER */
-  footer { background: var(--white); border-top: 1px solid var(--light); padding: 2rem 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  .footer-tagline { font-size: 0.8rem; color: var(--muted); font-style: italic; }
-  .footer-copy { font-size: 0.78rem; color: #d1d5db; }
-
-  /* SCROLL REVEAL */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .rd1{transition-delay:0.05s} .rd2{transition-delay:0.12s} .rd3{transition-delay:0.19s} .rd4{transition-delay:0.26s} .rd5{transition-delay:0.33s}
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-visual { display: none; }
-    .service-card.full-card { grid-template-columns: 1fr; }
-    .full-steps { grid-template-columns: 1fr; }
-    .process-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
-    .form-row { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 640px) {
-    .nav-links { display: none; }
-    section { padding: 4rem 5%; }
-    .hero { padding: 7rem 5% 4rem; }
-    nav { padding: 1rem 5%; }
-  }
-</style>
+        /* Responsive Móvil */
+        @media (max-width: 968px) {
+            .hero-inner { grid-template-columns: 1fr; text-align: center; }
+            .hero-desc { margin: 0 auto 2.5rem; }
+            .photo-blob { width: 280px; height: 320px; margin: 0 auto; }
+            .photo-bg-shape { width: 300px; height: 300px; left: 50%; transform: translateX(-50%); }
+            .photo-container { margin-top: 2rem; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="main-nav">
-  <div class="logo-text">ValClabs 🚀</div>
-  <ul class="nav-links">
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#proceso">Proceso</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-  <a href="#contacto" class="nav-cta">Trabajemos juntos →</a>
-</nav>
+    <nav>
+        <a href="#" class="logo-text">ValClabs 🚀</a>
+        <a href="#contacto" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Let's Talk!</a>
+    </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-blob blob1"></div>
-  <div class="hero-blob blob2"></div>
-  <div class="hero-blob blob3"></div>
-  <div class="hero-inner">
-    <div>
-      <div class="hero-badge">🚀 Data Specialist · ValClabs</div>
-      <h1>Trabaja<br><em>conmigo.</em></h1>
-      <p class="hero-sub">Transformo los datos de tu empresa en <strong>decisiones estratégicas claras</strong>. Claridad. Velocidad. Ventaja competitiva.</p>
-      <div class="hero-btns">
-        <a href="#servicios" class="btn-blue">Ver portafolio ↓</a>
-        <a href="#contacto" class="btn-outline">Contactarme ✉️</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><div class="stat-num">5</div><div class="stat-label">Servicios especializados</div></div>
-        <div class="stat"><div class="stat-num">360°</div><div class="stat-label">Estrategia integral</div></div>
-        <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Potencial en tus datos</div></div>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="mini-card"><div class="mini-icon" style="background:#dbeafe;">📊</div><div><div class="mini-title">Data Analysis & Reporting</div><div class="mini-sub">Benchmarks periódicos + reporte mensual</div></div></div>
-      <div class="mini-card"><div class="mini-icon" style="background:#dcfce7;">📈</div><div><div class="mini-title">Business Intelligence</div><div class="mini-sub">Dashboards interactivos en tiempo real</div></div></div>
-      <div class="mini-card"><div class="mini-icon" style="background:#ede9fe;">🗄️</div><div><div class="mini-title">Data Management</div><div class="mini-sub">Infraestructura segura y escalable</div></div></div>
-      <div class="mini-card"><div class="mini-icon" style="background:#fee2e2;">🎯</div><div><div class="mini-title">KPI Development</div><div class="mini-sub">Indicadores que impulsan decisiones</div></div></div>
-      <div class="mini-card"><div class="mini-icon" style="background:#fef3c7;">♾️</div><div><div class="mini-title">360° Intelligence Package</div><div class="mini-sub">Estrategia de datos end-to-end</div></div></div>
-    </div>
-  </div>
-</section>
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="lang-tag">
+                    <span>🌎</span> Bilingüe: Español & English
+                </div>
+                <h1>Soy <em>Valclabs</em>. Transformo tu data con pasión.</h1>
+                <p class="hero-desc">
+                    Entiendo el esfuerzo detrás de cada startup y pequeño negocio. Por eso, no solo analizo datos; me convierto en tu aliada estratégica para que crezcamos juntos, con claridad y sin rodeos.
+                </p>
+                <a href="#contacto" class="btn-primary">Trabajemos juntos →</a>
+            </div>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span class="marquee-item">Data Analysis <span class="mdot"></span></span>
-    <span class="marquee-item">Business Intelligence <span class="mdot"></span></span>
-    <span class="marquee-item">KPI Development <span class="mdot"></span></span>
-    <span class="marquee-item">Strategic Reporting <span class="mdot"></span></span>
-    <span class="marquee-item">Interactive Dashboards <span class="mdot"></span></span>
-    <span class="marquee-item">Data Infrastructure <span class="mdot"></span></span>
-    <span class="marquee-item">Clear Data. Smart Decisions. <span class="mdot"></span></span>
-    <span class="marquee-item">Valentina Escobar · ValClabs <span class="mdot"></span></span>
-    <span class="marquee-item">Data Analysis <span class="mdot"></span></span>
-    <span class="marquee-item">Business Intelligence <span class="mdot"></span></span>
-    <span class="marquee-item">KPI Development <span class="mdot"></span></span>
-    <span class="marquee-item">Strategic Reporting <span class="mdot"></span></span>
-    <span class="marquee-item">Interactive Dashboards <span class="mdot"></span></span>
-    <span class="marquee-item">Data Infrastructure <span class="mdot"></span></span>
-    <span class="marquee-item">Clear Data. Smart Decisions. <span class="mdot"></span></span>
-    <span class="marquee-item">Valentina Escobar · ValClabs <span class="mdot"></span></span>
-  </div>
-</div>
-
-<!-- SERVICES -->
-<section id="servicios">
-  <div class="container">
-    <div class="services-header reveal">
-      <div class="section-eyebrow">Portafolio de Servicios 2025</div>
-      <h2 class="section-title">Giving your data a <span style="background:linear-gradient(120deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">competitive edge.</span></h2>
-      <p class="section-sub">Soluciones diseñadas para transformar la forma en que tu empresa entiende y usa sus datos.</p>
-    </div>
-
-    <div class="services-grid">
-      <!-- 1 -->
-      <div class="service-card sc-blue reveal rd1">
-        <div class="card-stripe"></div>
-        <div class="card-ghost">1</div>
-        <div class="card-icon">📊</div>
-        <h3 class="card-title">Data Analysis &<br>Strategic Reporting</h3>
-        <p class="card-desc">Insights claros y regulares sobre el desempeño de tu negocio. Más allá de las suposiciones — perspectivas accionables y competitivas.</p>
-        <ul class="card-list">
-          <li>Benchmarks comparativos el 10 y 20 de cada mes</li>
-          <li>Reporte consolidado mensual con tendencias clave</li>
-          <li>Recomendaciones estratégicas para el siguiente período</li>
-        </ul>
-      </div>
-      <!-- 2 -->
-      <div class="service-card sc-green reveal rd2">
-        <div class="card-stripe"></div>
-        <div class="card-ghost">2</div>
-        <div class="card-icon">📈</div>
-        <h3 class="card-title">Business Intelligence:<br>Dashboards Interactivos</h3>
-        <p class="card-desc">Centraliza tu información crítica en dashboards visuales, intuitivos y en tiempo real. Decisiones informadas, siempre.</p>
-        <ul class="card-list">
-          <li>Soluciones custom por departamento (Ventas, Marketing, Ops)</li>
-          <li>Visualización estratégica en tiempo real</li>
-          <li>Integración nativa con Google Workspace y Microsoft 365</li>
-        </ul>
-      </div>
-      <!-- 3 -->
-      <div class="service-card sc-purple reveal rd1">
-        <div class="card-stripe"></div>
-        <div class="card-ghost">3</div>
-        <div class="card-icon">🗄️</div>
-        <h3 class="card-title">Data Management &<br>Infrastructure</h3>
-        <p class="card-desc">La base de una gran estrategia: datos limpios, organizados y accesibles. Construimos y mantenemos un sistema robusto y confiable.</p>
-        <ul class="card-list">
-          <li>Arquitectura estratégica y diseño del sistema</li>
-          <li>Desarrollo e implementación de bases de datos custom</li>
-          <li>Gobernanza, mantenimiento y monitoreo de seguridad</li>
-        </ul>
-      </div>
-      <!-- 4 -->
-      <div class="service-card sc-red reveal rd2">
-        <div class="card-stripe"></div>
-        <div class="card-ghost">4</div>
-        <div class="card-icon">🎯</div>
-        <h3 class="card-title">Key Performance<br>Indicator (KPI) Development</h3>
-        <p class="card-desc">No puedes mejorar lo que no mides. Definimos los indicadores correctos que verdaderamente impulsan tu negocio hacia adelante.</p>
-        <ul class="card-list">
-          <li>Base de medición estructurada orientada a datos</li>
-          <li>KPIs de desempeño alineados con metas estratégicas</li>
-          <li>KPIs de productividad y optimización continua</li>
-        </ul>
-      </div>
-      <!-- 5 full -->
-      <div class="service-card sc-orange full-card reveal">
-        <div class="card-stripe"></div>
-        <div>
-          <div class="card-ghost" style="position:relative;top:auto;right:auto;font-size:5rem;opacity:0.05;">5</div>
-          <div class="card-icon" style="background:#fef3c7;">♾️</div>
-          <h3 class="card-title" style="font-size:1.5rem;">The 360° Intelligence Package</h3>
-          <p style="font-size:0.9rem;color:var(--muted);margin:0.3rem 0 0;font-style:italic;">Your End-to-End Data Strategy</p>
-          <p class="card-desc" style="margin-top:1rem;">El paquete completo que integra todos los servicios en un ciclo continuo de inteligencia. Desde el descubrimiento hasta la optimización — sin interrupciones, con resultados medibles.</p>
+            <div class="photo-container">
+                <div class="photo-bg-shape"></div>
+                <div class="photo-blob"></div>
+            </div>
         </div>
-        <div>
-          <div class="full-steps">
-            <div class="fstep"><div class="fstep-phase" style="color:var(--green);">Fase 01</div><div class="fstep-name">Discovery & Planning 🔍</div><div class="fstep-desc">Entendemos tus objetivos y mapeamos el estado actual de tus datos.</div></div>
-            <div class="fstep"><div class="fstep-phase" style="color:var(--blue);">Fase 02</div><div class="fstep-name">Design & Implementation 🔧</div><div class="fstep-desc">Construimos herramientas, bases de datos, dashboards y KPIs a medida.</div></div>
-            <div class="fstep"><div class="fstep-phase" style="color:var(--orange);">Fase 03</div><div class="fstep-name">Monitoring & Analysis 📊</div><div class="fstep-desc">Reportes periódicos y monitoreo en tiempo real de tendencias clave.</div></div>
-            <div class="fstep"><div class="fstep-phase" style="color:var(--red);">Fase 04</div><div class="fstep-name">Optimization & Strategy 💡</div><div class="fstep-desc">Insights accionables y recomendaciones para mejora continua.</div></div>
-          </div>
+    </section>
+
+    <section class="reviews-section">
+        <h2 class="reviews-title">Confianza que cruza fronteras ✨</h2>
+        <div class="marquee-wrapper">
+            <div class="card">
+                <p class="card-text">"Valclabs tiene una agilidad impresionante. En una semana nos ordenó métricas que nos estaban volviendo locos. ¡Indispensable para cualquier startup en México!"</p>
+                <div class="card-user">
+                    <div class="user-avatar" style="background:#dcfce7">MA</div>
+                    <div class="user-info">
+                        <h4>Miguel Arango</h4>
+                        <p>CTO @ PropTech, CDMX</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-text">"Se nota el compromiso y el cariño que le pone a su trabajo. No es solo un reporte, es que se preocupa porque uno como independiente entienda el negocio."</p>
+                <div class="card-user">
+                    <div class="user-avatar" style="background:#fee2e2">SR</div>
+                    <div class="user-info">
+                        <h4>Sandra Restrepo</h4>
+                        <p>Diseño Independiente, Medellín</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-text">"Working with Valclabs was a breeze. Her ability to switch between Spanish and English while explaining complex data insights is a game changer for us in the US."</p>
+                <div class="card-user">
+                    <div class="user-avatar" style="background:#e0f2fe">JB</div>
+                    <div class="user-info">
+                        <h4>Jim Brooks</h4>
+                        <p>Owner @ Brooks Agency, Miami</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-text">"¡La mejor! Valclabs nos ayudó a escalar nuestras decisiones basadas en datos reales. Súper profesional y con una vibra increíble."</p>
+                <div class="card-user">
+                    <div class="user-avatar" style="background:#fef3c7">CP</div>
+                    <div class="user-info">
+                        <h4>Camilo P.</h4>
+                        <p>Founder @ Logística 360, Bogotá</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-text">"Valclabs tiene una agilidad impresionante. En una semana nos ordenó métricas que nos estaban volviendo locos..."</p>
+                <div class="card-user">
+                    <div class="user-avatar" style="background:#dcfce7">MA</div>
+                    <div class="user-info"><h4>Miguel Arango</h4><p>CTO @ PropTech, CDMX</p></div>
+                </div>
+            </div>
+            <div class="card">
+                <p class="card-text">"Working with Valclabs was a breeze. Her ability to switch between languages is a game changer..."</p>
+                <div class="card-user">
+                    <div class="user-avatar" style="background:#e0f2fe">JB</div>
+                    <div class="user-info"><h4>Jim Brooks</h4><p>Miami, FL</p></div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section id="proceso">
-  <div class="container">
-    <div class="process-grid">
-      <div class="reveal">
-        <div class="section-eyebrow">Cómo trabajamos</div>
-        <h2 class="section-title">Un proceso claro,<br>resultados <span style="color:var(--green);">medibles.</span></h2>
-        <p class="section-sub">Cada proyecto comienza con una consulta gratuita para entender exactamente qué necesita tu negocio.</p>
-        <a href="#contacto" class="btn-blue" style="margin-top:2rem;display:inline-flex;">Comenzar ahora →</a>
-      </div>
-      <div class="process-steps reveal rd1">
-        <div class="pstep"><div class="pdot d1">01</div><div><div class="pstep-title">Consulta inicial gratuita</div><div class="pstep-desc">Evaluamos tus necesidades, el estado de tus datos y definimos el alcance del proyecto juntos.</div></div></div>
-        <div class="pstep"><div class="pdot d2">02</div><div><div class="pstep-title">Propuesta personalizada</div><div class="pstep-desc">Diseñamos un plan a medida con entregables claros, tiempos definidos y métricas de éxito.</div></div></div>
-        <div class="pstep"><div class="pdot d3">03</div><div><div class="pstep-title">Implementación y entrega</div><div class="pstep-desc">Ejecutamos el proyecto con actualizaciones constantes. Tú siempre sabes en qué punto estamos.</div></div></div>
-        <div class="pstep"><div class="pdot d4">04</div><div><div class="pstep-title">Seguimiento continuo</div><div class="pstep-desc">Los datos evolucionan, tu estrategia también. Iteramos y optimizamos contigo en el tiempo.</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contacto">
-  <div class="container">
-    <div class="contact-wrapper">
-      <!-- Info -->
-      <div class="reveal">
-        <div class="section-eyebrow">Contáctame</div>
-        <h2 class="section-title">¿Listo para darle ventaja a tus datos?</h2>
-        <p class="section-sub">Cuéntame qué necesita tu negocio y te respondo con una propuesta personalizada. La consulta inicial es <strong>completamente gratuita</strong>.</p>
-        <div style="margin-top:2rem;">
-          <div class="info-pill"><span class="pill-icon">📧</span><div><span>valclabs@gmail.com</span><span class="pill-label">Correo electrónico</span></div></div>
-          <div class="info-pill"><span class="pill-icon">👩‍💻</span><div><span>Ing. Valentina Escobar</span><span class="pill-label">Data Specialist · ValClabs</span></div></div>
-          <div class="info-pill"><span class="pill-icon">⏱️</span><div><span>Respondo en menos de 24h</span><span class="pill-label">Tiempo de respuesta</span></div></div>
-        </div>
-      </div>
-
-      <!-- Form -->
-      <div class="reveal rd2">
-        <div class="form-card">
-          <div id="form-body">
-            <div class="form-title">Cuéntame sobre tu proyecto</div>
-            <div class="form-subtitle">Completa el formulario y te escribo pronto ✉️</div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="fname">Nombre *</label>
-                <input class="form-input" type="text" id="fname" placeholder="Tu nombre" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="fcompany">Empresa</label>
-                <input class="form-input" type="text" id="fcompany" placeholder="Tu empresa">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="femail">Tu correo electrónico *</label>
-              <input class="form-input" type="email" id="femail" placeholder="tucorreo@empresa.com" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="fservice">Servicio de interés *</label>
-              <select class="form-select" id="fservice" required>
-                <option value="" disabled selected>Selecciona un servicio</option>
-                <option>📊 Data Analysis &amp; Strategic Reporting</option>
-                <option>📈 Business Intelligence: Dashboards Interactivos</option>
-                <option>🗄️ Data Management &amp; Infrastructure</option>
-                <option>🎯 KPI Development</option>
-                <option>♾️ 360° Intelligence Package (End-to-End)</option>
-                <option>🤔 No estoy seguro, necesito asesoría</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="fbudget">Presupuesto estimado *</label>
-              <select class="form-select" id="fbudget" required>
-                <option value="" disabled selected>Selecciona un rango</option>
-                <option>Menos de $500 USD</option>
-                <option>$500 – $1,500 USD</option>
-                <option>$1,500 – $3,000 USD</option>
-                <option>$3,000 – $6,000 USD</option>
-                <option>Más de $6,000 USD</option>
-                <option>Por definir / lo conversamos</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="fmessage">Cuéntame sobre tu proyecto *</label>
-              <textarea class="form-textarea" id="fmessage" placeholder="¿Qué problema quieres resolver? ¿Cuál es tu objetivo principal? ¿Qué herramientas usas actualmente?..." required></textarea>
-            </div>
-
-            <button class="btn-submit" onclick="sendEmail()">Enviar mensaje ✉️</button>
-            <p class="form-privacy">🔒 Tu información es confidencial y no será compartida con terceros.</p>
-          </div>
-
-          <div class="form-success" id="form-success">
-            <div class="s-icon">✅</div>
-            <h3>¡Listo! Revisa tu correo</h3>
-            <p>Tu cliente de correo se abrió con el mensaje pre-llenado. Solo haz clic en Enviar y te responderé en menos de 24 horas.</p>
-            <p style="margin-top:1rem;font-weight:700;color:var(--blue);">valclabs@gmail.com</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div>
-    <div class="logo-text">ValClabs 🚀</div>
-    <div class="footer-tagline">Clear data. Smart Decisions.</div>
-  </div>
-  <div class="footer-copy">© 2025 ValClabs · Ing. Valentina Escobar</div>
-</footer>
-
-<script>
-  // Scroll reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
-
-  // Nav shadow
-  window.addEventListener('scroll', () => {
-    document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 30);
-  });
-
-  // Form → mailto
-  function sendEmail() {
-    const name    = document.getElementById('fname').value.trim();
-    const company = document.getElementById('fcompany').value.trim();
-    const email   = document.getElementById('femail').value.trim();
-    const service = document.getElementById('fservice').value;
-    const budget  = document.getElementById('fbudget').value;
-    const message = document.getElementById('fmessage').value.trim();
-
-    if (!name || !email || !service || !budget || !message) {
-      alert('Por favor completa todos los campos marcados con *.');
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      alert('Por favor ingresa un correo electrónico válido.');
-      return;
-    }
-
-    const subject = encodeURIComponent(`[ValClabs] Consulta de ${name} — ${service}`);
-    const body = encodeURIComponent(
-`Hola Valentina,
-
-He completado el formulario en tu página web y quisiera hablar sobre un proyecto.
-
-━━━━━━━━━━━━━━━━━━━━━━
-DATOS DE CONTACTO
-━━━━━━━━━━━━━━━━━━━━━━
-Nombre:      ${name}
-Empresa:     ${company || 'No indicada'}
-Mi correo:   ${email}
-
-━━━━━━━━━━━━━━━━━━━━━━
-PROYECTO
-━━━━━━━━━━━━━━━━━━━━━━
-Servicio:    ${service}
-Presupuesto: ${budget}
-
-━━━━━━━━━━━━━━━━━━━━━━
-DESCRIPCIÓN
-━━━━━━━━━━━━━━━━━━━━━━
-${message}
-
-━━━━━━━━━━━━━━━━━━━━━━
-(Enviado desde la landing page de ValClabs)`
-    );
-
-    window.location.href = `mailto:valclabs@gmail.com?subject=${subject}&body=${body}`;
-
-    setTimeout(() => {
-      document.getElementById('form-body').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
-    }, 700);
-  }
-</script>
+    </section>
 
 </body>
 </html>
