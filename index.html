@@ -16,12 +16,12 @@ html{scroll-behavior:smooth;font-size:16px}
   --muted:#6b5b95;
   --light:#e9e5f5;
   
-  /* Paleta Morada, Lila y Amarilla/Naranja */
-  --brand-dark: #3b0764; 
-  --brand-main: #7e22ce; 
-  --brand-light: #d8b4fe; 
-  --brand-accent: #facc15; 
-  --brand-warm: #f97316; 
+  /* Paleta Morada, Lila y Amarilla/Naranja (Colores de la marca) */
+  --brand-dark: #3b0764; /* Morado muy oscuro */
+  --brand-main: #7e22ce; /* Morado vibrante */
+  --brand-light: #d8b4fe; /* Lila */
+  --brand-accent: #facc15; /* Amarillo cálido/vibrante */
+  --brand-warm: #f97316; /* Naranja sutil del cohete */
   
   /* Verde EXCLUSIVO para el botón superior */
   --cta-green-start: #22c55e;
@@ -34,7 +34,7 @@ html{scroll-behavior:smooth;font-size:16px}
   --font-aesthetic:'Century Expanded', 'Century', 'Libre Baskerville', serif;
 }
 
-body{background:var(--white);color:var(--text);font-family:var(--font-main);line-height:1.5;overflow-x:hidden}
+body{background:var(--white);color:var(--text);font-family:var(--font-main);line-height:1.4;overflow-x:hidden}
 h1,h2,h3,h4,h5,h6{font-family:var(--font-main);line-height:1.15; color: var(--brand-dark);}
 a{text-decoration:none;color:inherit}
 
@@ -175,45 +175,58 @@ nav{
 }
 .tech-tag:hover{border-color:var(--brand-accent); color:var(--brand-dark); transform:translateY(-2px); background:rgba(250,204,21,0.1); box-shadow:0 5px 15px rgba(250,204,21,0.15);}
 
-/* ===== SERVICIOS ===== */
+/* ===== SERVICIOS (FOTOS GRANDES Y EN FORMATO ORIGINAL) ===== */
 .services-section{padding:7rem 5%; background:var(--off);}
 .services-inner{max-width:1100px; margin:0 auto;}
 .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; margin-top:3rem;}
 .svc-card{
   background:#fff; border:1px solid var(--light); border-radius:24px;
-  padding:2.5rem; transition:transform .3s, box-shadow .3s;
+  padding:2rem; transition:transform .3s, box-shadow .3s;
   display: flex; flex-direction: column; align-items: center; text-align: center;
 }
 .svc-card:hover{transform:translateY(-8px); box-shadow:var(--shadow-lg); border-color:var(--brand-light);}
 
+/* Nuevo envoltorio: Ocupa todo el ancho, con un resplandor detrás */
 .svc-photo-wrapper {
-  width: 150px; height: 150px; margin-bottom: 1.5rem;
-  border-radius: 50%; position: relative;
-  background: linear-gradient(135deg, rgba(216,180,254,0.3), rgba(250,204,21,0.25));
-  display: flex; align-items: center; justify-content: center; overflow: visible;
+  width: 100%;
+  position: relative;
+  margin-bottom: 2.5rem;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
 }
-.svc-photo-wrapper::after {
-  content: ''; position: absolute; inset: -4px; border-radius: 50%;
-  border: 2px dashed var(--brand-main); opacity:0.5; animation: rotateDash 15s linear infinite;
+.svc-card:hover .svc-photo-wrapper {
+  transform: translateY(-5px) scale(1.02);
 }
-@keyframes rotateDash {
-  100% { transform: rotate(360deg); }
+/* Resplandor/Aura de la imagen */
+.svc-photo-wrapper::before {
+  content: ''; position: absolute; inset: -8px; border-radius: 24px;
+  background: linear-gradient(135deg, var(--brand-main), var(--brand-accent));
+  z-index: -1; opacity: 0.15; filter: blur(12px);
+  transition: opacity 0.3s ease;
+}
+.svc-card:hover .svc-photo-wrapper::before {
+  opacity: 0.35;
 }
 
+/* La imagen: height auto asegura que no se corte, respeta ancho/alto original */
 .svc-image {
-  width: 140px; height: 140px; object-fit: contain; border-radius: 50%;
+  width: 100%; 
+  height: auto; 
+  border-radius: 20px;
+  display: block;
   position: relative; z-index: 2;
-  filter: drop-shadow(0 10px 10px rgba(59, 7, 100, 0.15));
+  box-shadow: 0 10px 25px rgba(59, 7, 100, 0.15);
 }
 
+/* Iconos de apoyo ahora más grandes y flotando en la esquina inferior */
 .svc-accent-icon {
-  position: absolute; bottom: 0; right: 0; z-index: 3;
+  position: absolute; bottom: -20px; right: -20px; z-index: 3;
   background: linear-gradient(135deg, var(--brand-accent), var(--brand-warm)); 
   color: var(--brand-dark);
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 55px; height: 55px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  border: 3px solid #fff;
+  font-size: 1.5rem; box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  border: 4px solid #fff;
 }
 
 .svc-card h3{font-size:1.3rem; font-weight:800; margin-bottom:1rem; color:var(--brand-dark);}
@@ -259,9 +272,7 @@ nav{
 
 /* ===== CONTACTO ===== */
 .contact-section{padding:7rem 5%; background:var(--white);}
-.form-container{
-  max-width:600px; margin:0 auto;
-}
+.form-container{ max-width:600px; margin:0 auto; }
 .form-group{margin-bottom:1.5rem;}
 .form-label{display:block; font-weight:600; margin-bottom:0.5rem; color:var(--brand-dark); font-size:0.95rem;}
 .form-input, .form-textarea, .form-select{
@@ -269,9 +280,7 @@ nav{
   font-family:var(--font-main); font-size:1.05rem; background:transparent; transition:all .3s;
   color:var(--text); border-radius:0;
 }
-.form-input:focus, .form-textarea:focus, .form-select:focus{
-  border-bottom-color:var(--brand-main); outline:none;
-}
+.form-input:focus, .form-textarea:focus, .form-select:focus{ border-bottom-color:var(--brand-main); outline:none; }
 .form-textarea{resize:vertical; min-height:100px;}
 .form-select{cursor:pointer; appearance:none;}
 
@@ -359,135 +368,96 @@ footer::before{
     <div class="services-grid">
       <div class="svc-card">
         <div class="svc-photo-wrapper">
-          <img src="fotodashboards.png" class="svc-image" alt="Dashboards Estratégicos con Valentina">
+          <img src="fotodashboards.png" class="svc-image" alt="Dashboards">
           <div class="svc-accent-icon">📊</div>
         </div>
         <h3>Dashboards Estratégicos</h3>
-        <p>Conexión de bases de datos y creación de reportes visuales para que veas tus KPIs en tiempo real, sin depender de descargas manuales.</p>
+        <p>Conexión de bases de datos y creación de reportes visuales para que veas tus KPIs en tiempo real.</p>
       </div>
       <div class="svc-card">
         <div class="svc-photo-wrapper">
-          <img src="fotoautomatizacion.png" class="svc-image" alt="Automatización de Procesos con Valentina">
+          <img src="fotoautomatizacion.png" class="svc-image" alt="Automatización">
           <div class="svc-accent-icon">⚙️</div>
         </div>
         <h3>Automatización de Procesos</h3>
-        <p>Desarrollo en <em>App Script</em> y Python para conectar todo el ecosistema de Google y liberar tu tiempo de tareas repetitivas.</p>
+        <p>Desarrollo en <em>App Script</em> y Python para conectar el ecosistema de Google y liberar tu tiempo.</p>
       </div>
       <div class="svc-card">
         <div class="svc-photo-wrapper">
-          <img src="fotoanalisis.png" class="svc-image" alt="Data Analytics con Valentina">
+          <img src="fotoanalisis.png" class="svc-image" alt="Data Analytics">
           <div class="svc-accent-icon">🧠</div>
         </div>
         <h3>Data Analytics</h3>
-        <p>Estructuración profunda con <em>SQL</em> para extraer insights reales que te indiquen dónde están las oportunidades y cuellos de botella.</p>
+        <p>Estructuración profunda con <em>SQL</em> para extraer insights reales que te indiquen dónde escalar.</p>
       </div>
     </div>
   </div>
 </section>
 
 <section class="reviews-section">
-  <div class="reviews-header">
-    <h2 class="section-title">Lo que dicen mis <em>clientes</em></h2>
-  </div>
-  
+  <div class="reviews-header"><h2 class="section-title">Lo que dicen mis <em>clientes</em></h2></div>
   <div class="reviews-track-container">
     <div class="reviews-track">
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
-        <div class="rev-text">"Valentina transformó nuestra forma de ver los datos. Pasamos de adivinar en Excel a tener un ecosistema colaborativo increíble."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#7e22ce">L</div>
-          <div><div class="rev-name">Lucía M.</div><div class="rev-role">Emprendedora Digital</div></div>
-        </div>
+        <div class="rev-text">"Valentina transformó nuestra forma de ver los datos. Pasamos de adivinar en Excel a tener un ecosistema increíble."</div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#7e22ce">L</div><div><div class="rev-name">Lucía M.</div><div class="rev-role">Emprendedora</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
-        <div class="rev-text">"El dashboard en Looker Studio y las automatizaciones nos ahorran literalmente decenas de horas de trabajo cada semana."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#facc15; color:#3b0764">M</div>
-          <div><div class="rev-name">Mateo P.</div><div class="rev-role">Growth Manager</div></div>
-        </div>
+        <div class="rev-text">"El dashboard en Looker Studio y las automatizaciones nos ahorran decenas de horas de trabajo manual."</div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#facc15; color:#3b0764">M</div><div><div class="rev-name">Mateo P.</div><div class="rev-role">Growth Manager</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
         <div class="rev-text">"Profesional, ágil y muy humana. Su visión como ingeniera le da un enfoque súper estratégico a todo."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#3b0764">A</div>
-          <div><div class="rev-name">Andrea C.</div><div class="rev-role">Directora de Agencia</div></div>
-        </div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#3b0764">A</div><div><div class="rev-name">Andrea C.</div><div class="rev-role">Directora de Agencia</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
         <div class="rev-text">"Es increíble su versatilidad. Empezó organizando nuestra data y terminó construyendo herramientas que usamos a diario."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#d8b4fe; color:#3b0764">D</div>
-          <div><div class="rev-name">Daniel R.</div><div class="rev-role">CEO E-commerce</div></div>
-        </div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#d8b4fe; color:#3b0764">D</div><div><div class="rev-name">Daniel R.</div><div class="rev-role">CEO E-commerce</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
         <div class="rev-text">"Pocas personas entienden Power BI y Google Workspace con tanta empatía y claridad. Totalmente recomendada."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#9333ea">S</div>
-          <div><div class="rev-name">Sofía V.</div><div class="rev-role">Consultora Financiera</div></div>
-        </div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#9333ea">S</div><div><div class="rev-name">Sofía V.</div><div class="rev-role">Consultora Financiera</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
         <div class="rev-text">"El orden y la estructura analítica que le dio a mi negocio me devolvió la tranquilidad. Su trabajo es impecable."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#c084fc; color:#3b0764">J</div>
-          <div><div class="rev-name">Javier T.</div><div class="rev-role">Fundador SaaS</div></div>
-        </div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#c084fc; color:#3b0764">J</div><div><div class="rev-name">Javier T.</div><div class="rev-role">Fundador SaaS</div></div></div>
       </div>
-
+      
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
-        <div class="rev-text">"Valentina transformó nuestra forma de ver los datos. Pasamos de adivinar en Excel a tener un ecosistema colaborativo increíble."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#7e22ce">L</div>
-          <div><div class="rev-name">Lucía M.</div><div class="rev-role">Emprendedora Digital</div></div>
-        </div>
+        <div class="rev-text">"Valentina transformó nuestra forma de ver los datos. Pasamos de adivinar en Excel a tener un ecosistema increíble."</div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#7e22ce">L</div><div><div class="rev-name">Lucía M.</div><div class="rev-role">Emprendedora</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
-        <div class="rev-text">"El dashboard en Looker Studio y las automatizaciones nos ahorran literalmente decenas de horas de trabajo cada semana."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#facc15; color:#3b0764">M</div>
-          <div><div class="rev-name">Mateo P.</div><div class="rev-role">Growth Manager</div></div>
-        </div>
+        <div class="rev-text">"El dashboard en Looker Studio y las automatizaciones nos ahorran decenas de horas de trabajo manual."</div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#facc15; color:#3b0764">M</div><div><div class="rev-name">Mateo P.</div><div class="rev-role">Growth Manager</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
         <div class="rev-text">"Profesional, ágil y muy humana. Su visión como ingeniera le da un enfoque súper estratégico a todo."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#3b0764">A</div>
-          <div><div class="rev-name">Andrea C.</div><div class="rev-role">Directora de Agencia</div></div>
-        </div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#3b0764">A</div><div><div class="rev-name">Andrea C.</div><div class="rev-role">Directora de Agencia</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
         <div class="rev-text">"Es increíble su versatilidad. Empezó organizando nuestra data y terminó construyendo herramientas que usamos a diario."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#d8b4fe; color:#3b0764">D</div>
-          <div><div class="rev-name">Daniel R.</div><div class="rev-role">CEO E-commerce</div></div>
-        </div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#d8b4fe; color:#3b0764">D</div><div><div class="rev-name">Daniel R.</div><div class="rev-role">CEO E-commerce</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
         <div class="rev-text">"Pocas personas entienden Power BI y Google Workspace con tanta empatía y claridad. Totalmente recomendada."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#9333ea">S</div>
-          <div><div class="rev-name">Sofía V.</div><div class="rev-role">Consultora Financiera</div></div>
-        </div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#9333ea">S</div><div><div class="rev-name">Sofía V.</div><div class="rev-role">Consultora Financiera</div></div></div>
       </div>
       <div class="rev-card">
         <div class="rev-stars">★★★★★</div>
         <div class="rev-text">"El orden y la estructura analítica que le dio a mi negocio me devolvió la tranquilidad. Su trabajo es impecable."</div>
-        <div class="rev-author">
-          <div class="rev-avatar" style="background:#c084fc; color:#3b0764">J</div>
-          <div><div class="rev-name">Javier T.</div><div class="rev-role">Fundador SaaS</div></div>
-        </div>
+        <div class="rev-author"><div class="rev-avatar" style="background:#c084fc; color:#3b0764">J</div><div><div class="rev-name">Javier T.</div><div class="rev-role">Fundador SaaS</div></div></div>
       </div>
     </div>
   </div>
@@ -496,19 +466,12 @@ footer::before{
 <section class="contact-section" id="contacto">
   <div class="form-container">
     <h2 class="section-title" style="text-align:center; margin-bottom:1rem;">Hablemos de tu <em>visión</em></h2>
-    <p style="text-align:center; color:var(--muted); margin-bottom:3rem; font-size:1.1rem;">Escríbeme y diseñaremos la arquitectura de datos que mejor se adapte a ti.</p>
-    
+    <p style="text-align:center; color:var(--muted); margin-bottom:3rem;">Escríbeme y diseñaremos la arquitectura de datos que mejor se adapte a ti.</p>
     <form onsubmit="event.preventDefault(); sendEmail();">
+      <div class="form-group"><label class="form-label">¿Cómo te llamas?</label><input type="text" id="fname" class="form-input" placeholder="Ej. Lucía" required></div>
+      <div class="form-group"><label class="form-label">Tu correo de contacto</label><input type="email" id="femail" class="form-input" placeholder="hola@tunegocio.com" required></div>
       <div class="form-group">
-        <label class="form-label" for="fname">¿Cómo te llamas?</label>
-        <input type="text" id="fname" class="form-input" placeholder="Ej. Lucía" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="femail">Tu correo de contacto</label>
-        <input type="email" id="femail" class="form-input" placeholder="hola@tunegocio.com" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="fbudget">Presupuesto estimado para este proyecto</label>
+        <label class="form-label">Presupuesto estimado</label>
         <select id="fbudget" class="form-select" required>
           <option value="" disabled selected>Selecciona un rango...</option>
           <option value="Menos de $200 USD">Menos de $200 USD</option>
@@ -517,10 +480,7 @@ footer::before{
           <option value="Más de $1,500 USD">Más de $1,500 USD</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label" for="fmessage">Cuéntame sobre tu proyecto</label>
-        <textarea id="fmessage" class="form-textarea" placeholder="Me gustaría organizar mis datos porque actualmente..." required></textarea>
-      </div>
+      <div class="form-group"><label class="form-label">Cuéntame sobre tu proyecto</label><textarea id="fmessage" class="form-textarea" placeholder="Me gustaría organizar mis datos porque..." required></textarea></div>
       <button type="submit" class="btn-submit">Enviar Mensaje 🚀</button>
     </form>
   </div>
@@ -528,8 +488,7 @@ footer::before{
 
 <footer>
   <div class="nav-logo" style="color:#fff; margin-bottom:1rem; position:relative; z-index:2;">Val<span>Clabs</span> 🚀</div>
-  <p style="color:rgba(255,255,255,0.7); font-size:1rem; position:relative; z-index:2;">Transformando la complejidad técnica en claridad y crecimiento.</p>
-  <p style="color:rgba(255,255,255,0.4); font-size:.85rem; margin-top:2rem; position:relative; z-index:2;">© 2026 ValClabs. Todos los derechos reservados.</p>
+  <p style="color:rgba(255,255,255,0.4); font-size:.85rem; position:relative; z-index:2;">© 2026 ValClabs. Todos los derechos reservados.</p>
 </footer>
 
 <script>
@@ -542,18 +501,10 @@ function sendEmail(){
   const email=document.getElementById('femail').value.trim();
   const budget=document.getElementById('fbudget').value;
   const message=document.getElementById('fmessage').value.trim();
-  
-  if(!name||!email||!budget||!message){
-      alert('Por favor completa todos los campos.');
-      return;
-  }
-  
   const subject=encodeURIComponent(`[ValClabs] Nueva consulta de ${name}`);
-  const body=encodeURIComponent(`¡Hola Valentina!\n\nTienes una nueva consulta desde tu landing page:\n\nNombre: ${name}\nCorreo: ${email}\nPresupuesto: ${budget}\n\nDetalles del Proyecto:\n${message}\n\n---`);
-  
+  const body=encodeURIComponent(`¡Hola Valentina!\n\nNombre: ${name}\nCorreo: ${email}\nPresupuesto: ${budget}\n\nDetalles:\n${message}`);
   window.location.href=`mailto:valclabs@gmail.com?subject=${subject}&body=${body}`;
 }
 </script>
-
 </body>
 </html>
