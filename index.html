@@ -1,262 +1,559 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ValClabs — Data Specialist & Strategy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --white:   #ffffff;
-            --off:     #f7f8fc;
-            --text:    #111827;
-            --muted:   #6b7280;
-            --light:   #e5e7eb;
-            /* Colores de marca basados en tu logo */
-            --blue:    #2d8cf0;
-            --purple:  #7c3aed;
-            --red:     #e63946;
-            --orange:  #f4a01c;
-            --green:   #5db329;
-            --shadow:  0 4px 24px rgba(0,0,0,0.07);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ValClabs — Data & Web Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & TOKENS DE MARCA ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+:root{
+  --white:#ffffff;
+  --off:#fcfafc;
+  --text:#2d1b4e;
+  --muted:#6b5b95;
+  --light:#e9e5f5;
+  
+  /* Paleta Morada, Lila y Amarilla/Naranja */
+  --brand-dark: #3b0764; 
+  --brand-main: #7e22ce; 
+  --brand-light: #d8b4fe; 
+  --brand-accent: #facc15; 
+  --brand-warm: #f97316; 
+  
+  /* Verde EXCLUSIVO para el botón superior */
+  --cta-green-start: #22c55e;
+  --cta-green-end: #16a34a;
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            background: var(--white);
-            color: var(--text);
-            font-family: 'Source Sans 3', sans-serif;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-        h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; }
+  --radius:24px;
+  --shadow-lg:0 20px 40px -5px rgba(59, 7, 100, 0.1);
+  
+  --font-main:'Source Sans Pro', sans-serif;
+  --font-aesthetic:'Century Expanded', 'Century', 'Libre Baskerville', serif;
+}
 
-        /* NAV CON LOGO DEGRADADO */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 1rem 5%;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--light);
-        }
-        .logo-text {
-            font-weight: 900; font-size: 1.6rem;
-            background: linear-gradient(90deg, var(--blue), var(--purple), var(--red), var(--orange));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
+body{background:var(--white);color:var(--text);font-family:var(--font-main);line-height:1.5;overflow-x:hidden}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-main);line-height:1.15; color: var(--brand-dark);}
+a{text-decoration:none;color:inherit}
 
-        /* HERO DINÁMICO */
-        .hero {
-            min-height: 100vh;
-            display: flex; align-items: center;
-            padding: 120px 5% 60px;
-            background: var(--white);
-            position: relative; overflow: hidden;
-        }
-        /* Burbujas flotantes del código original */
-        .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; z-index: 0; }
-        .blob1 { width: 400px; height: 400px; background: #dbeafe; top: -100px; left: -50px; animation: bfloat 10s infinite; }
-        .blob2 { width: 300px; height: 300px; background: #fef3c7; bottom: -50px; right: -50px; animation: bfloat 12s infinite reverse; }
-        
-        @keyframes bfloat { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,40px)} }
+/* ===== CURSIVA AESTHETIC ===== */
+em {
+  font-family: var(--font-aesthetic);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--brand-main);
+}
 
-        .hero-inner {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 4rem; max-width: 1200px; margin: 0 auto;
-            align-items: center; position: relative; z-index: 1;
-        }
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--off)}
+::-webkit-scrollbar-thumb{background:var(--brand-light);border-radius:10px}
 
-        /* FOTO DINÁMICA (Efecto Blob) */
-        .photo-container { position: relative; display: flex; justify-content: center; }
-        .photo-blob {
-            width: 380px; height: 440px;
-            background: url('EPCAV.jpg') center/cover;
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            animation: morphing 10s ease-in-out infinite;
-            border: 8px solid white;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
-        }
-        @keyframes morphing {
-            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-            50% { border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%; }
-        }
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 5%; background:rgba(255,255,255,.95);
+  backdrop-filter:blur(20px); border-bottom:1px solid var(--light);
+}
+.nav-logo{font-weight:900;font-size:1.4rem; color: var(--brand-dark);}
+.nav-logo span{color: var(--brand-main);}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.95rem;font-weight:600;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--brand-main)}
 
-        .lang-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: #eff6ff; color: var(--blue); padding: 6px 16px;
-            border-radius: 50px; font-weight: 700; font-size: 0.8rem; margin-bottom: 1.5rem;
-            border: 1px solid #bfdbfe;
-        }
+/* BOTÓN VERDE EXCLUSIVO */
+.nav-cta-green{
+  display:inline-flex;align-items:center;padding:.6rem 1.4rem;border-radius:50px;
+  background:linear-gradient(135deg, var(--cta-green-start), var(--cta-green-end));
+  color:#fff; font-weight:700; font-size:.9rem;
+  box-shadow:0 4px 15px rgba(34, 197, 94, 0.3); transition:all .3s ease;
+  white-space:nowrap;
+}
+.nav-cta-green:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(34, 197, 94, 0.5)}
 
-        .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
-        .hero h1 em { font-style: normal; color: var(--blue); }
+@media(max-width:768px){.nav-links{display:none}}
 
-        .btn-main {
-            background: var(--blue); color: white; padding: 1rem 2.5rem;
-            border-radius: 12px; text-decoration: none; font-weight: 800;
-            display: inline-block; transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(45,140,240,0.2);
-        }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(45,140,240,0.3); }
+/* ===== HERO & PHOTO ANIMATION ===== */
+.hero{
+  min-height:95vh; display:flex; flex-direction:column; align-items:center; text-align:center;
+  padding:9rem 5% 4rem; position:relative; overflow:hidden;
+}
+.hero-bg-1 {
+  position:absolute; width:600px; height:600px; background:radial-gradient(var(--brand-light), transparent 60%);
+  top:-200px; left:-200px; opacity:0.3; pointer-events:none; animation: drift 20s infinite alternate;
+}
+.hero-bg-2 {
+  position:absolute; width:500px; height:500px; background:radial-gradient(var(--brand-accent), transparent 60%);
+  bottom:-100px; right:-100px; opacity:0.12; pointer-events:none; animation: drift 25s infinite alternate-reverse;
+}
+.hero-bg-3 {
+  position:absolute; width:400px; height:400px; background:radial-gradient(var(--brand-warm), transparent 60%);
+  top:20%; right:10%; opacity:0.08; pointer-events:none; animation: drift 30s infinite alternate;
+}
+@keyframes drift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
 
-        /* SERVICIOS */
-        .services { padding: 80px 5%; background: var(--off); }
-        .grid-services {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem; max-width: 1200px; margin: 40px auto 0;
-        }
-        .s-card {
-            background: white; padding: 2.5rem; border-radius: 24px;
-            border: 1px solid var(--light); transition: 0.3s;
-            position: relative; overflow: hidden;
-        }
-        .s-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: var(--blue);
-        }
-        .s-card:nth-child(2)::before { background: var(--purple); }
-        .s-card:nth-child(3)::before { background: var(--orange); }
+.hero-title{font-size:clamp(2.5rem, 6vw, 4.2rem); font-weight:900; margin-bottom:1.5rem; letter-spacing:-1px; position:relative; z-index:2;}
+.hero-sub{font-size:1.2rem; color:var(--muted); max-width:650px; margin-bottom:2.5rem; position:relative; z-index:2;}
 
-        /* REVIEWS (CARRUSEL INFINITO) */
-        .reviews { padding: 80px 0; overflow: hidden; background: white; }
-        .track { display: flex; width: calc(350px * 10); animation: scroll 30s linear infinite; }
-        .track:hover { animation-play-state: paused; }
-        .r-card {
-            width: 320px; margin: 0 1rem; background: var(--off);
-            padding: 2rem; border-radius: 20px; flex-shrink: 0;
-        }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-320px * 5)); } }
+.hero-actions{display:flex; flex-wrap:nowrap; gap:1rem; margin-bottom:3.5rem; justify-content:center; position:relative; z-index:2;}
 
-        /* FORMULARIO */
-        .contact { padding: 80px 5%; max-width: 900px; margin: 0 auto; }
-        .form-box {
-            background: white; padding: 3rem; border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--light);
-        }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 700; color: var(--text); }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 1rem; border: 1px solid var(--light);
-            border-radius: 12px; font-family: inherit; font-size: 1rem; outline: none;
-        }
-        .form-group input:focus { border-color: var(--blue); }
+.btn-primary{
+  display:inline-block; padding:1rem 2rem; border-radius:50px; background:var(--brand-dark);
+  color:#fff; font-weight:700; transition:all .3s; white-space:nowrap; font-size:1rem;
+}
+.btn-primary:hover{background:var(--brand-main); transform:translateY(-3px); box-shadow: 0 10px 25px rgba(126,34,206,0.3);}
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .hero-inner { grid-template-columns: 1fr; text-align: center; }
-            .photo-blob { width: 300px; height: 340px; margin: 0 auto; }
-            nav .nav-cta { display: none; }
-        }
-    </style>
+.btn-ghost{
+  display:inline-block; padding:1rem 2rem; border-radius:50px; border:2px solid var(--brand-light); 
+  color:var(--brand-dark); font-weight:700; transition:all .3s; white-space:nowrap; font-size:1rem; background:rgba(255,255,255,0.8);
+}
+.btn-ghost:hover{border-color:var(--brand-accent); color:var(--brand-dark); transform:translateY(-2px); background:rgba(250,204,21,0.1);}
+
+@media(max-width:480px){
+  .hero-actions { flex-wrap: nowrap; gap: 0.5rem; }
+  .btn-primary, .btn-ghost { padding: 0.8rem 1rem; font-size: 0.85rem; }
+}
+
+.hero-photo-container{
+  width:100%; max-width:380px; position:relative; margin-top:1rem; z-index:2;
+  animation: floatImage 5s ease-in-out infinite;
+}
+.photo-inner{
+  border-radius:60% 40% 30% 70% / 60% 30% 70% 40%;
+  overflow:hidden; border:8px solid #fff; box-shadow: var(--shadow-lg);
+  animation: blobMorph 10s ease-in-out infinite; position:relative;
+}
+.photo-inner::after {
+  content:''; position:absolute; inset:0; border-radius:inherit;
+  box-shadow: inset 0 0 20px rgba(126,34,206,0.2); pointer-events:none;
+}
+.photo-inner img{width:100%; height:auto; display:block; object-fit:cover;}
+
+@keyframes floatImage {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes blobMorph{
+  0%,100%{border-radius:60% 40% 30% 70% / 60% 30% 70% 40%}
+  50%{border-radius:30% 60% 70% 30% / 50% 60% 30% 60%}
+}
+
+/* ===== SECCIÓN EMPÁTICA ===== */
+.empathy-section{padding:7rem 5%; background:linear-gradient(135deg, var(--brand-dark), var(--text)); color:#fff; text-align:center; position:relative;}
+.empathy-section::before{
+  content:''; position:absolute; top:0; left:0; width:100%; height:100%;
+  background:radial-gradient(circle at center, rgba(216,180,254,0.1), transparent 70%); pointer-events:none;
+}
+.empathy-inner{max-width:850px; margin:0 auto; position:relative; z-index:1;}
+.empathy-title{color:#fff; font-size:clamp(1.8rem, 4vw, 2.5rem); margin-bottom:1.5rem; font-weight:800; line-height:1.3;}
+.empathy-text{font-size:1.15rem; color:rgba(255,255,255,0.85); line-height:1.6;}
+
+.highlight-light {
+  color: #fcfaff; 
+  font-family: var(--font-aesthetic);
+  font-style: italic;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(216, 180, 254, 0.6);
+}
+
+/* ===== ABOUT ===== */
+.about-section{padding:7rem 5%; background:var(--white); position:relative;}
+.about-inner{max-width:900px; margin:0 auto; text-align:center;}
+.section-title{font-size:clamp(2.2rem, 4vw, 3rem); font-weight:900; margin-bottom:2rem;}
+.about-text{font-size:1.15rem; text-align:left; margin-bottom:1.5rem; color:var(--muted); line-height:1.6;}
+
+.tech-stack{display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; margin-top:2.5rem;}
+.tech-tag{
+  background:var(--off); padding:.7rem 1.4rem; border-radius:12px; font-weight:700;
+  border:1px solid var(--light); color:var(--brand-dark); transition:all .3s;
+}
+.tech-tag:hover{border-color:var(--brand-accent); color:var(--brand-dark); transform:translateY(-2px); background:rgba(250,204,21,0.1); box-shadow:0 5px 15px rgba(250,204,21,0.15);}
+
+/* ===== SERVICIOS ===== */
+.services-section{padding:7rem 5%; background:var(--off);}
+.services-inner{max-width:1100px; margin:0 auto;}
+.services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; margin-top:3rem;}
+.svc-card{
+  background:#fff; border:1px solid var(--light); border-radius:24px;
+  padding:2.5rem; transition:transform .3s, box-shadow .3s;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.svc-card:hover{transform:translateY(-8px); box-shadow:var(--shadow-lg); border-color:var(--brand-light);}
+
+.svc-photo-wrapper {
+  width: 150px; height: 150px; margin-bottom: 1.5rem;
+  border-radius: 50%; position: relative;
+  background: linear-gradient(135deg, rgba(216,180,254,0.3), rgba(250,204,21,0.25));
+  display: flex; align-items: center; justify-content: center; overflow: visible;
+}
+.svc-photo-wrapper::after {
+  content: ''; position: absolute; inset: -4px; border-radius: 50%;
+  border: 2px dashed var(--brand-main); opacity:0.5; animation: rotateDash 15s linear infinite;
+}
+@keyframes rotateDash {
+  100% { transform: rotate(360deg); }
+}
+
+.svc-image {
+  width: 140px; height: 140px; object-fit: contain; border-radius: 50%;
+  position: relative; z-index: 2;
+  filter: drop-shadow(0 10px 10px rgba(59, 7, 100, 0.15));
+}
+
+.svc-accent-icon {
+  position: absolute; bottom: 0; right: 0; z-index: 3;
+  background: linear-gradient(135deg, var(--brand-accent), var(--brand-warm)); 
+  color: var(--brand-dark);
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  border: 3px solid #fff;
+}
+
+.svc-card h3{font-size:1.3rem; font-weight:800; margin-bottom:1rem; color:var(--brand-dark);}
+.svc-card p{color:var(--muted); font-size:1rem; line-height:1.5;}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.services-grid{grid-template-columns:1fr}}
+
+/* ===== REVIEWS ===== */
+.reviews-section{padding:7rem 0; background:var(--white); overflow:hidden;}
+.reviews-header{text-align:center; margin-bottom:3rem;}
+.reviews-track-container{position:relative; overflow:hidden;}
+.reviews-track-container::before, .reviews-track-container::after {
+  content:''; position:absolute; top:0; bottom:0; width:100px; z-index:2; pointer-events:none;
+}
+.reviews-track-container::before{left:0; background:linear-gradient(90deg, #fff, transparent);}
+.reviews-track-container::after{right:0; background:linear-gradient(-90deg, #fff, transparent);}
+
+.reviews-track{
+  display:flex; width:max-content; gap:1.5rem; padding:1rem 0;
+  animation: scrollReviews 45s linear infinite;
+}
+.reviews-track:hover{animation-play-state:paused;}
+.rev-card{
+  background:var(--off); border:1px solid var(--light); border-radius:20px; 
+  padding:2rem; width:350px; box-shadow:0 10px 25px rgba(59,7,100,0.03); flex-shrink:0;
+  transition:transform .3s;
+}
+.rev-card:hover{transform:translateY(-5px); border-color:var(--brand-light);}
+.rev-stars{color:var(--brand-accent); font-size:1.1rem; letter-spacing:2px; margin-bottom:1rem;}
+.rev-text{font-size:1.05rem; color:var(--text); line-height:1.5; margin-bottom:1.5rem; font-family:var(--font-aesthetic); font-style:italic;}
+.rev-author{display:flex; align-items:center; gap:1rem;}
+.rev-avatar{
+  width:45px; height:45px; border-radius:50%; color:#fff; display:flex; 
+  align-items:center; justify-content:center; font-weight:800; font-size:1rem;
+}
+.rev-name{font-weight:800; font-size:1rem; color:var(--brand-dark);}
+.rev-role{font-size:.85rem; color:var(--muted); margin-top:.2rem;}
+
+@keyframes scrollReviews{
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 0.75rem)); }
+}
+
+/* ===== CONTACTO ===== */
+.contact-section{padding:7rem 5%; background:var(--white);}
+.form-container{
+  max-width:600px; margin:0 auto;
+}
+.form-group{margin-bottom:1.5rem;}
+.form-label{display:block; font-weight:600; margin-bottom:0.5rem; color:var(--brand-dark); font-size:0.95rem;}
+.form-input, .form-textarea, .form-select{
+  width:100%; padding:1rem 0; border:none; border-bottom:2px solid var(--light);
+  font-family:var(--font-main); font-size:1.05rem; background:transparent; transition:all .3s;
+  color:var(--text); border-radius:0;
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus{
+  border-bottom-color:var(--brand-main); outline:none;
+}
+.form-textarea{resize:vertical; min-height:100px;}
+.form-select{cursor:pointer; appearance:none;}
+
+.btn-submit{
+  width:100%; padding:1.2rem; border-radius:50px; border:none; margin-top:1.5rem;
+  background:var(--brand-dark); color:#fff; font-weight:700; font-size:1.1rem; cursor:pointer;
+  transition:all .3s; display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.btn-submit:hover{background:var(--brand-main); transform:translateY(-2px); box-shadow:0 10px 20px rgba(126,34,206,.3);}
+
+/* ===== FOOTER ===== */
+footer{background:var(--brand-dark); padding:4rem 5%; text-align:center; position:relative; overflow:hidden;}
+footer::before{
+  content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+  background:radial-gradient(circle at center, rgba(250,204,21,0.05), transparent 60%); pointer-events:none;
+}
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="logo-text">ValClabs 🚀</a>
-        <a href="#contacto" class="btn-main" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">Trabajemos →</a>
-    </nav>
+<nav id="main-nav">
+  <div class="nav-logo">Val<span>Clabs</span> 🚀</div>
+  <ul class="nav-links">
+    <li><a href="#sobre-mi">Perfil</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#contacto" class="nav-cta-green">Trabajemos juntos</a>
+</nav>
 
-    <section class="hero">
-        <div class="hero-blob blob1"></div>
-        <div class="hero-blob blob2"></div>
-        <div class="hero-inner">
-            <div class="hero-content">
-                <div class="lang-badge">🌎 English & Español Support</div>
-                <h1>Transformo tu data en <em>Decisiones.</em></h1>
-                <p>Ayudo a startups y negocios emergentes en USA y Latam a escalar mediante el análisis de datos estratégico. Menos dudas, más resultados.</p>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a href="#contacto" class="btn-main">Empezar ahora →</a>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <span style="color: var(--green); font-size: 1.5rem;">●</span>
-                        <span style="font-weight: 700; font-size: 0.9rem;">Disponible para nuevos proyectos</span>
-                    </div>
-                </div>
-            </div>
-            <div class="photo-container">
-                <div class="photo-blob"></div>
-            </div>
-        </div>
-    </section>
+<section class="hero">
+  <div class="hero-bg-1"></div>
+  <div class="hero-bg-2"></div>
+  <div class="hero-bg-3"></div>
+  
+  <h1 class="hero-title">Tus datos tienen la respuesta<br><em>Yo te la muestro</em></h1>
+  <p class="hero-sub">
+    Entiendo lo que es sentir que tu negocio no crece, o que crece y no saber exactamente por qué. Estoy aquí para darte esa <em>claridad</em> que necesitas para escalar con seguridad.
+  </p>
+  <div class="hero-actions">
+    <a href="#contacto" class="btn-primary">Hablemos de tu proyecto</a>
+    <a href="#servicios" class="btn-ghost">Ver servicios</a>
+  </div>
 
-    <section class="services" id="servicios">
-        <div style="text-align: center; max-width: 700px; margin: 0 auto;">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Servicios de alto impacto</h2>
-            <p style="color: var(--muted);">Soluciones personalizadas para negocios que necesitan claridad bilingüe y ejecución técnica.</p>
-        </div>
-        <div class="grid-services">
-            <div class="s-card">
-                <h3 style="color: var(--blue); margin-bottom: 15px;">Dashboarding</h3>
-                <p>Tus métricas clave centralizadas en un solo lugar. Toma el control total de tu operación.</p>
-            </div>
-            <div class="s-card">
-                <h3 style="color: var(--purple); margin-bottom: 15px;">Data Strategy</h3>
-                <p>Diseño de procesos para recolectar y usar datos que realmente impulsan el crecimiento.</p>
-            </div>
-            <div class="s-card">
-                <h3 style="color: var(--orange); margin-bottom: 15px;">Business Insights</h3>
-                <p>Análisis profundo para identificar oportunidades de ahorro y nuevas fuentes de ingreso.</p>
-            </div>
-        </div>
-    </section>
+  <div class="hero-photo-container">
+    <div class="photo-inner">
+      <img src="EPCAV.jpg" alt="Valentina ValClabs">
+    </div>
+  </div>
+</section>
 
-    <section class="reviews">
-        <h2 style="text-align: center; margin-bottom: 3rem;">Clientes satisfechos 🌎</h2>
-        <div class="track">
-            <div class="r-card">
-                <p>"ValClabs delivered exactly what we needed. Her bilingual skills made communication seamless for our US-based team."</p>
-                <small><strong>Jonathan D.</strong> — CEO @ BloomTech (Texas, USA)</small>
-            </div>
-            <div class="r-card">
-                <p>"Como emprendedora independiente, no sabía por dónde empezar con mis datos. Ella me dio el norte que necesitaba."</p>
-                <small><strong>Mariana S.</strong> — Founder @ ArteVivo (Medellín, CO)</small>
-            </div>
-            <div class="r-card">
-                <p>"Excelente servicio. Ordenó nuestro inventario y ventas con una precisión que no habíamos visto antes en Santa Cruz."</p>
-                <small><strong>Ricardo L.</strong> — Gerente @ AgroDirect (Bolivia)</small>
-            </div>
-            <div class="r-card">
-                <p>"Professional, fast, and very technical. She understands the startup hustle perfectly."</p>
-                <small><strong>Sarah W.</strong> — Ops Manager @ NextLevel (California)</small>
-            </div>
-            <div class="r-card">
-                <p>"Súper recomendada para negocios que quieren pasar al siguiente nivel digital."</p>
-                <small><strong>Andrés F.</strong> — Independiente (Bogotá, CO)</small>
-            </div>
-        </div>
-    </section>
+<section class="empathy-section">
+  <div class="empathy-inner">
+    <h2 class="empathy-title">Sé lo que se siente estar frente a una montaña de datos y no saber por dónde empezar</h2>
+    <p class="empathy-text">
+      Has construido algo increíble, pero a veces sientes que tomas decisiones <span class="highlight-light">a ciegas</span> o que dependes demasiado de la intuición. No te falta capacidad, solo te falta una estructura amigable que convierta el ruido en pasos claros y accionables.
+    </p>
+  </div>
+</section>
 
-    <section class="contact" id="contacto">
-        <div class="form-box">
-            <h2 style="margin-bottom: 10px;">¿Listo para transformar tu negocio?</h2>
-            <p style="margin-bottom: 30px; color: var(--muted);">Este mensaje llegará directamente a <strong>valclabs@gmail.com</strong></p>
-            
-            <form action="https://formsubmit.co/valclabs@gmail.com" method="POST">
-                <input type="hidden" name="_next" value="https://valclabs-sketch.github.io/Trabaja-Conmigo/">
-                <input type="hidden" name="_subject" value="Nuevo Proyecto - ValClabs Website">
-                
-                <div class="form-group">
-                    <label>Nombre o Empresa</label>
-                    <input type="text" name="name" required placeholder="Tu nombre">
-                </div>
-                <div class="form-group">
-                    <label>Correo electrónico</label>
-                    <input type="email" name="email" required placeholder="tu@correo.com">
-                </div>
-                <div class="form-group">
-                    <label>Cuéntame sobre tu reto con los datos</label>
-                    <textarea name="message" required placeholder="¿Qué necesitas resolver?"></textarea>
-                </div>
-                <button type="submit" class="btn-main" style="width: 100%; border: none; cursor: pointer;">Enviar Mensaje 🚀</button>
-            </form>
-        </div>
-    </section>
+<section class="about-section" id="sobre-mi">
+  <div class="about-inner">
+    <h2 class="section-title">Sobre mí</h2>
+    <p class="about-text">
+      Soy <em>Ingeniera Industrial</em> con más de 4 años de experiencia trabajando en datos. Durante mucho tiempo trabajé para empresas a nivel global y luego decidí trabajar de manera independiente con personas y negocios que apenas empezaban o que tenían datos pero no sabían qué hacer con ellos para ir al siguiente nivel. 
+    </p>
+    <p class="about-text">
+      Sé lo que es empezar y por eso me emociona poder ayudar a esas personas o negocios que emergen para que saquen el mayor provecho de la tecnología y de sus datos.
+    </p>
+    <p class="about-text">
+      Tengo formación y experiencia en <em>ciencia y analítica de datos</em>. Mi misión es unir la lógica de la ingeniería con la versatilidad de herramientas como Power BI, Looker Studio y SQL, pero enfocándome fuertemente en la agilidad de <em>Google Workspace</em> para que la tecnología trabaje para ti, y no al revés.
+    </p>
+    <div class="tech-stack">
+      <span class="tech-tag">Google Workspace</span>
+      <span class="tech-tag">Power BI & Looker Studio</span>
+      <span class="tech-tag">SQL & Python</span>
+      <span class="tech-tag">App Script & VBA</span>
+    </div>
+  </div>
+</section>
 
-    <footer style="text-align: center; padding: 40px; border-top: 1px solid var(--light); color: var(--muted);">
-        &copy; 2026 ValClabs — Data Specialist Bilingüe.
-    </footer>
+<section class="services-section" id="servicios">
+  <div class="services-inner">
+    <h2 class="section-title" style="text-align:center; margin-bottom:3rem;">Cómo puedo <em>ayudarte</em></h2>
+    <div class="services-grid">
+      <div class="svc-card">
+        <div class="svc-photo-wrapper">
+          <img src="fotodashboards.png" class="svc-image" alt="Dashboards Estratégicos con Valentina">
+          <div class="svc-accent-icon">📊</div>
+        </div>
+        <h3>Dashboards Estratégicos</h3>
+        <p>Conexión de bases de datos y creación de reportes visuales para que veas tus KPIs en tiempo real, sin depender de descargas manuales.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-photo-wrapper">
+          <img src="fotoautomatizacion.png" class="svc-image" alt="Automatización de Procesos con Valentina">
+          <div class="svc-accent-icon">⚙️</div>
+        </div>
+        <h3>Automatización de Procesos</h3>
+        <p>Desarrollo en <em>App Script</em> y Python para conectar todo el ecosistema de Google y liberar tu tiempo de tareas repetitivas.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-photo-wrapper">
+          <img src="fotoanalisis.png" class="svc-image" alt="Data Analytics con Valentina">
+          <div class="svc-accent-icon">🧠</div>
+        </div>
+        <h3>Data Analytics</h3>
+        <p>Estructuración profunda con <em>SQL</em> para extraer insights reales que te indiquen dónde están las oportunidades y cuellos de botella.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews-section">
+  <div class="reviews-header">
+    <h2 class="section-title">Lo que dicen mis <em>clientes</em></h2>
+  </div>
+  
+  <div class="reviews-track-container">
+    <div class="reviews-track">
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Valentina transformó nuestra forma de ver los datos. Pasamos de adivinar en Excel a tener un ecosistema colaborativo increíble."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#7e22ce">L</div>
+          <div><div class="rev-name">Lucía M.</div><div class="rev-role">Emprendedora Digital</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"El dashboard en Looker Studio y las automatizaciones nos ahorran literalmente decenas de horas de trabajo cada semana."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#facc15; color:#3b0764">M</div>
+          <div><div class="rev-name">Mateo P.</div><div class="rev-role">Growth Manager</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Profesional, ágil y muy humana. Su visión como ingeniera le da un enfoque súper estratégico a todo."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#3b0764">A</div>
+          <div><div class="rev-name">Andrea C.</div><div class="rev-role">Directora de Agencia</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Es increíble su versatilidad. Empezó organizando nuestra data y terminó construyendo herramientas que usamos a diario."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#d8b4fe; color:#3b0764">D</div>
+          <div><div class="rev-name">Daniel R.</div><div class="rev-role">CEO E-commerce</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Pocas personas entienden Power BI y Google Workspace con tanta empatía y claridad. Totalmente recomendada."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#9333ea">S</div>
+          <div><div class="rev-name">Sofía V.</div><div class="rev-role">Consultora Financiera</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"El orden y la estructura analítica que le dio a mi negocio me devolvió la tranquilidad. Su trabajo es impecable."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#c084fc; color:#3b0764">J</div>
+          <div><div class="rev-name">Javier T.</div><div class="rev-role">Fundador SaaS</div></div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Valentina transformó nuestra forma de ver los datos. Pasamos de adivinar en Excel a tener un ecosistema colaborativo increíble."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#7e22ce">L</div>
+          <div><div class="rev-name">Lucía M.</div><div class="rev-role">Emprendedora Digital</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"El dashboard en Looker Studio y las automatizaciones nos ahorran literalmente decenas de horas de trabajo cada semana."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#facc15; color:#3b0764">M</div>
+          <div><div class="rev-name">Mateo P.</div><div class="rev-role">Growth Manager</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Profesional, ágil y muy humana. Su visión como ingeniera le da un enfoque súper estratégico a todo."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#3b0764">A</div>
+          <div><div class="rev-name">Andrea C.</div><div class="rev-role">Directora de Agencia</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Es increíble su versatilidad. Empezó organizando nuestra data y terminó construyendo herramientas que usamos a diario."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#d8b4fe; color:#3b0764">D</div>
+          <div><div class="rev-name">Daniel R.</div><div class="rev-role">CEO E-commerce</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"Pocas personas entienden Power BI y Google Workspace con tanta empatía y claridad. Totalmente recomendada."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#9333ea">S</div>
+          <div><div class="rev-name">Sofía V.</div><div class="rev-role">Consultora Financiera</div></div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-text">"El orden y la estructura analítica que le dio a mi negocio me devolvió la tranquilidad. Su trabajo es impecable."</div>
+        <div class="rev-author">
+          <div class="rev-avatar" style="background:#c084fc; color:#3b0764">J</div>
+          <div><div class="rev-name">Javier T.</div><div class="rev-role">Fundador SaaS</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contacto">
+  <div class="form-container">
+    <h2 class="section-title" style="text-align:center; margin-bottom:1rem;">Hablemos de tu <em>visión</em></h2>
+    <p style="text-align:center; color:var(--muted); margin-bottom:3rem; font-size:1.1rem;">Escríbeme y diseñaremos la arquitectura de datos que mejor se adapte a ti.</p>
+    
+    <form onsubmit="event.preventDefault(); sendEmail();">
+      <div class="form-group">
+        <label class="form-label" for="fname">¿Cómo te llamas?</label>
+        <input type="text" id="fname" class="form-input" placeholder="Ej. Lucía" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="femail">Tu correo de contacto</label>
+        <input type="email" id="femail" class="form-input" placeholder="hola@tunegocio.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="fbudget">Presupuesto estimado para este proyecto</label>
+        <select id="fbudget" class="form-select" required>
+          <option value="" disabled selected>Selecciona un rango...</option>
+          <option value="Menos de $200 USD">Menos de $200 USD</option>
+          <option value="$200 - $500 USD">$200 - $500 USD</option>
+          <option value="$500 - $1,500 USD">$500 - $1,500 USD</option>
+          <option value="Más de $1,500 USD">Más de $1,500 USD</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="fmessage">Cuéntame sobre tu proyecto</label>
+        <textarea id="fmessage" class="form-textarea" placeholder="Me gustaría organizar mis datos porque actualmente..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Enviar Mensaje 🚀</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="nav-logo" style="color:#fff; margin-bottom:1rem; position:relative; z-index:2;">Val<span>Clabs</span> 🚀</div>
+  <p style="color:rgba(255,255,255,0.7); font-size:1rem; position:relative; z-index:2;">Transformando la complejidad técnica en claridad y crecimiento.</p>
+  <p style="color:rgba(255,255,255,0.4); font-size:.85rem; margin-top:2rem; position:relative; z-index:2;">© 2026 ValClabs. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').style.boxShadow = window.scrollY > 50 ? '0 10px 30px rgba(59,7,100,0.05)' : 'none';
+});
+
+function sendEmail(){
+  const name=document.getElementById('fname').value.trim();
+  const email=document.getElementById('femail').value.trim();
+  const budget=document.getElementById('fbudget').value;
+  const message=document.getElementById('fmessage').value.trim();
+  
+  if(!name||!email||!budget||!message){
+      alert('Por favor completa todos los campos.');
+      return;
+  }
+  
+  const subject=encodeURIComponent(`[ValClabs] Nueva consulta de ${name}`);
+  const body=encodeURIComponent(`¡Hola Valentina!\n\nTienes una nueva consulta desde tu landing page:\n\nNombre: ${name}\nCorreo: ${email}\nPresupuesto: ${budget}\n\nDetalles del Proyecto:\n${message}\n\n---`);
+  
+  window.location.href=`mailto:valclabs@gmail.com?subject=${subject}&body=${body}`;
+}
+</script>
 
 </body>
 </html>
